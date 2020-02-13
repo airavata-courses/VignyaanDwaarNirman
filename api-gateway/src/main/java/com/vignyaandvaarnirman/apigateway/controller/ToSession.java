@@ -7,14 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 
 public class ToSession {
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
 
-    @Autowired
-    private Queue queue;
+    UserId uid;
 
-    @Scheduled(fixedDelay = 1000, initialDelay = 500)
-    public String send( UserId uid){
-        return (String)this.rabbitTemplate.convertSendAndReceive(queue.getName(),uid);
+    private RabbitTemplate rabbitTemplate = new RabbitTemplate();
+
+
+    private Queue queue = new Queue("toSession");
+
+    public String send(){
+        return (String)this.rabbitTemplate.convertSendAndReceive(queue.getName(),this.uid);
     }
 }

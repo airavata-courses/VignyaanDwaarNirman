@@ -2,25 +2,25 @@ package com.vignyaandvaarnirman.apigateway.model;
 
 public class RegUser {
 
-    String firstName;
-    String lastName;
+    String first_name;
+    String last_name;
     String email;
     String password;
 
     public String getFirstName() {
-        return firstName;
+        return first_name;
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.first_name = firstName;
     }
 
     public String getLastName() {
-        return lastName;
+        return last_name;
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.last_name = lastName;
     }
 
     public String getEmail() {

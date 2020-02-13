@@ -1,15 +1,12 @@
 com\vignyaandvaarnirman\apigateway\controller\ToDataR.class
 com\vignyaandvaarnirman\apigateway\controller\ToSession.class
-com\vignyaandvaarnirman\apigateway\controller\MessageConfig$ToSessionConfig.class
-com\vignyaandvaarnirman\apigateway\controller\MessageConfig$SessionDataConfig.class
 com\vignyaandvaarnirman\apigateway\model\LoginUser.class
 com\vignyaandvaarnirman\apigateway\ApiGatewayApplication.class
+com\vignyaandvaarnirman\apigateway\controller\FromModelListener.class
 com\vignyaandvaarnirman\apigateway\model\Data.class
 com\vignyaandvaarnirman\apigateway\model\JWToken.class
 com\vignyaandvaarnirman\apigateway\model\RegUser.class
-com\vignyaandvaarnirman\apigateway\controller\MessageConfig$ToSessionConfig$ToDataRConfig.class
 com\vignyaandvaarnirman\apigateway\model\ProfileUser.class
 com\vignyaandvaarnirman\apigateway\controller\APIController.class
 com\vignyaandvaarnirman\apigateway\model\UserId.class
-com\vignyaandvaarnirman\apigateway\controller\MessageConfig$FromSessionConfig.class
 com\vignyaandvaarnirman\apigateway\controller\MessageConfig.class

@@ -9,3 +9,6 @@ logging:
 tutorial:
   client:
     duration: 60000
+
+server:
+  port: 8090

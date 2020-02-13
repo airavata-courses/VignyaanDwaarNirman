@@ -6,7 +6,7 @@ public class Data {
     String start_date;
     String end_date;
     String user_id;
-    String func_type;
+    String function_type;
 
     public String getRadar_id() {
         return radar_id;
@@ -41,10 +41,10 @@ public class Data {
     }
 
     public String getFunc_type() {
-        return func_type;
+        return function_type;
     }
 
-    public void setFunc_type(String func_type) {
-        this.func_type = func_type;
+    public void setFunc_type(String function_type) {
+        this.function_type = function_type;
     }
 }

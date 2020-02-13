@@ -14,58 +14,72 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 @RestController
 @EnableRabbit
 @RequestMapping("/users")
 public class APIController {
 
-    String model_res;
+//    String model_res;
+//
+//    public String getModel_res() {
+//        return model_res;
+//    }
+//
+//    public void setModel_res(String model_res) {
+//        this.model_res = model_res;
+//    }
 
-    @Bean
-    public Queue myQueue() {
-        return new Queue("apiData");
-    }
+//    @Bean
+//    public Queue myQueue() {
+//        return new Queue("apiData");
+//    }
+//
+//    @RabbitListener(queues = "apiData")
+//    public void receive1(String in) throws InterruptedException {
+//        this.model_res = in;
+//    }
 
-    @RabbitListener(queues = "apiData")
-    public void receive1(String in) throws InterruptedException {
-        this.model_res = in;
-    }
-
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     public String postUserLoginDetails(@RequestBody LoginUser user) {
         //TODO: Add User Management
         RestTemplate restTemplate = new RestTemplate();
-        JWToken jwToken = restTemplate.postForObject("https://localhost:5000/users",user, JWToken.class);
-        return jwToken.getJwt();
+         return restTemplate.postForObject("http://localhost:5000/users/login",user, String.class);
     }
-    @GetMapping("/profile")
+    @GetMapping(value = "/profile")
     public ProfileUser getUserDetails(@RequestBody JWToken jwToken) {
         //TODO : Add User Management
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject("https://localhost:5000/users",ProfileUser.class,jwToken);
+        return restTemplate.getForObject("http://localhost:5000/users/profile",ProfileUser.class,jwToken);
     }
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register")
     public String postUserRegisterationDetails(@RequestBody RegUser regUser) {
-        //TODO: Add User Management
         RestTemplate restTemplate = new RestTemplate();
-        String response = restTemplate.postForObject("https://localhost:5000/users",regUser, String.class);
+        String response = restTemplate.postForObject("http://localhost:5000/users/register",regUser, String.class);
         return response;
     }
 
-    @GetMapping("/session")
+    @GetMapping(value = "/session")
     public String getSessionDetails(@RequestBody UserId uid) {
         ToSession toSession = new ToSession();
-        return toSession.send(uid);
+        toSession.uid = uid;
+        String res = toSession.send();
+        return res;
     }
 
-    @GetMapping("/dashboard")
-    public String getBottomData(@RequestBody Data data) {
-        //TODO: Add Data Manipulation
+    @PostMapping(value = "/dashboardsearch")
+    public String getBottomData(@RequestBody Data data) throws IOException, TimeoutException, InterruptedException {
+        System.out.println("Dashboard data: "+ data.toString());
         ToDataR toDataR = new ToDataR();
         toDataR.send(data);
-        return this.model_res;
+        Thread.sleep(10000);
+        FromModelListener listener = new FromModelListener();
+        String path = listener.receive();
+        System.out.println("Sent to front-end: "+path);
+        return path;
     }
 
 }
