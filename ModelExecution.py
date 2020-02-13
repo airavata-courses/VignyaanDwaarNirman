@@ -56,16 +56,18 @@ def callback(ch, method, properties, body):
     
     # sessionPayload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":str(start_date), "end_date":str(end_date),"timestamp":timestamp, "file_location":file_location}
     # modelExec_channel.basic_publish(exchange='logs', routing_key='', body=json.dumps(sessionPayload))
-    
-    api_connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
-    api_channel = api_connection.channel()
-    api_channel.queue_declare(queue='apiData')
-    api_channel.basic_publish(exchange='', routing_key='apiData', body=json.dumps(ApiPayload))
+
 
     session_connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     session_channel = session_connection.channel()
     session_channel.queue_declare(queue='sessionData')
     session_channel.basic_publish(exchange='', routing_key='sessionData', body=json.dumps(SessionPayload))
+
+    api_connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    api_channel = api_connection.channel()
+    api_channel.queue_declare(queue='apiData', durable=True)
+    api_channel.basic_publish(exchange='', routing_key='apiData', body=json.dumps(ApiPayload))
+
 
     api_connection.close()
     session_connection.close()
