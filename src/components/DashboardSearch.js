@@ -106,6 +106,14 @@ class Dashboard extends Component {
     e.preventDefault();
     const isValid = this.validate();
     if (isValid) {
+      const user = {
+        email: this.state.email,
+        selectedOption: this.state.selectedOption,
+        selectedFuncOption: this.state.selectedFuncOption,
+        consumer: this.state.consumer,
+        start: this.state.start,
+        end: this.state.end
+      };
       getPlot(user).then(res => {
         if (res) {
           console.log(res);
