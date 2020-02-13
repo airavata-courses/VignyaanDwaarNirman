@@ -48,6 +48,10 @@ class Dashboard extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  handleDate(date){
+    this.setState({date})
+  }
+
   handleChange = selectedOption => {
     this.setState({ selectedOption });
   };
@@ -103,21 +107,22 @@ class Dashboard extends Component {
   }
 
   onSubmit(e) {
+    this.userData = JSON.parse(localStorage.getItem("email"));
     e.preventDefault();
     const isValid = this.validate();
     if (isValid) {
-      const user = {
-        email: this.state.email,
-        selectedOption: this.state.selectedOption,
-        selectedFuncOption: this.state.selectedFuncOption,
-        consumer: this.state.consumer,
+      const plot = {
+        selectedOption: this.state.selectedOption.value,
+        selectedFuncOption: this.state.selectedFuncOption.value,
+        consumer: this.userData.email,
         start: this.state.start,
         end: this.state.end
-      };
-      getPlot(user).then(res => {
+      }
+      console.log("trying to send")
+      getPlot(plot).then(res => {
         if (res) {
           console.log(res);
-          this.props.history.push(`/plot`);
+          this.props.history.push(`/profile`);
         }
       });
     }
@@ -161,7 +166,7 @@ class Dashboard extends Component {
                 <DateTime
                   isValidDate={valid}
                   value={this.state.start}
-                  onChange={this.onChange}
+                  onChange={this.handleDate}
                 />
                 <div style={{ fontSize: 12, color: "red" }}>
                   {this.state.startError}
@@ -173,7 +178,7 @@ class Dashboard extends Component {
                   placeholderText="MM/DD/YYYY"
                   isValidDate={valid}
                   value={this.state.end}
-                  onChange={this.onChange}
+                  onChange={this.handleDate}
                 />
                 <div style={{ fontSize: 12, color: "red" }}>
                   {this.state.endError}
@@ -194,242 +199,128 @@ class Dashboard extends Component {
 }
 
 const options = [
-  {
-    value: "Alabama",
-    label: "AL"
-  },
-  {
-    value: "Alaska",
-    label: "AK"
-  },
-  {
-    value: "American Samoa",
-    label: "AS"
-  },
-  {
-    value: "Arizona",
-    label: "AZ"
-  },
-  {
-    value: "Arkansas",
-    label: "AR"
-  },
-  {
-    value: "California",
-    label: "CA"
-  },
-  {
-    value: "Colorado",
-    label: "CO"
-  },
-  {
-    value: "Connecticut",
-    label: "CT"
-  },
-  {
-    value: "Delaware",
-    label: "DE"
-  },
-  {
-    value: "District Of Columbia",
-    label: "DC"
-  },
-  {
-    value: "Federated States Of Micronesia",
-    label: "FM"
-  },
-  {
-    value: "Florida",
-    label: "FL"
-  },
-  {
-    value: "Georgia",
-    label: "GA"
-  },
-  {
-    value: "Guam",
-    label: "GU"
-  },
-  {
-    value: "Hawaii",
-    label: "HI"
-  },
-  {
-    value: "Idaho",
-    label: "ID"
-  },
-  {
-    value: "Illinois",
-    label: "IL"
-  },
-  {
-    value: "Indiana",
-    label: "IN"
-  },
-  {
-    value: "Iowa",
-    label: "IA"
-  },
-  {
-    value: "Kansas",
-    label: "KS"
-  },
-  {
-    value: "Kentucky",
-    label: "KY"
-  },
-  {
-    value: "Louisiana",
-    label: "LA"
-  },
-  {
-    value: "Maine",
-    label: "ME"
-  },
-  {
-    value: "Marshall Islands",
-    label: "MH"
-  },
-  {
-    value: "Maryland",
-    label: "MD"
-  },
-  {
-    value: "Massachusetts",
-    label: "MA"
-  },
-  {
-    value: "Michigan",
-    label: "MI"
-  },
-  {
-    value: "Minnesota",
-    label: "MN"
-  },
-  {
-    value: "Mississippi",
-    label: "MS"
-  },
-  {
-    value: "Missouri",
-    label: "MO"
-  },
-  {
-    value: "Montana",
-    label: "MT"
-  },
-  {
-    value: "Nebraska",
-    label: "NE"
-  },
-  {
-    value: "Nevada",
-    label: "NV"
-  },
-  {
-    value: "New Hampshire",
-    label: "NH"
-  },
-  {
-    value: "New Jersey",
-    label: "NJ"
-  },
-  {
-    value: "New Mexico",
-    label: "NM"
-  },
-  {
-    value: "New York",
-    label: "NY"
-  },
-  {
-    value: "North Carolina",
-    label: "NC"
-  },
-  {
-    value: "North Dakota",
-    label: "ND"
-  },
-  {
-    value: "Northern Mariana Islands",
-    label: "MP"
-  },
-  {
-    value: "Ohio",
-    label: "OH"
-  },
-  {
-    value: "Oklahoma",
-    label: "OK"
-  },
-  {
-    value: "Oregon",
-    label: "OR"
-  },
-  {
-    value: "Palau",
-    label: "PW"
-  },
-  {
-    value: "Pennsylvania",
-    label: "PA"
-  },
-  {
-    value: "Puerto Rico",
-    label: "PR"
-  },
-  {
-    value: "Rhode Island",
-    label: "RI"
-  },
-  {
-    value: "South Carolina",
-    label: "SC"
-  },
-  {
-    value: "South Dakota",
-    label: "SD"
-  },
-  {
-    value: "Tennessee",
-    label: "TN"
-  },
-  {
-    value: "Texas",
-    label: "TX"
-  },
-  {
-    value: "Utah",
-    label: "UT"
-  },
-  {
-    value: "Vermont",
-    label: "VT"
-  },
-  {
-    value: "Virgin Islands",
-    label: "VI"
-  },
-  {
-    value: "Virginia",
-    label: "VA"
-  },
-  {
-    value: "Washington",
-    label: "WA"
-  },
-  {
-    value: "West Virginia",
-    label: "WV"
-  },
-  {
-    value: "Wisconsin",
-    label: "WI"
-  },
-  {
-    value: "Wyoming",
-    label: "WY"
-  }
+  {value: 'KABR',label: 'ABERDEEN, SD'},
+{value: 'KBIS',label: 'BISMARCK, ND'},
+{value: 'KFTG',label: 'FRONT RANGE AP, CO'},
+{value: 'KDMX',label: 'JOHNSTON, IA'},
+{value: 'KDTX',label: 'WHITE LAKE, MI'},
+{value: 'KDDC',label: 'DODGE CITY, KS'},
+{value: 'KDLH',label: 'DULUTH, MN'},
+{value: 'KCYS',label: 'CHEYENNE, WY'},
+{value: 'KLOT',label: 'ROMEOVILLE, IL'},
+{value: 'KGLD',label: 'GOODLAND, KS'},
+{value: 'KUEX',label: 'BLUE HILL, NE'},
+{value: 'KGJX',label: 'GRAND JUNCTION, CO'},
+{value: 'KGRR',label: 'GRAND RAPIDS, MI'},
+{value: 'KMVX',label: 'GRAND FORKS, ND'},
+{value: 'KGRB',label: 'GREEN BAY, WI'},
+{value: 'KIND',label: 'INDIANAPOLIS, IN'},
+{value: 'KJKL',label: 'JACKSON, KY'},
+{value: 'KARX',label: 'LA CROSSE, WI'},
+{value: 'KILX',label: 'LINCOLN, IL'},
+{value: 'KLVX',label: 'FORT KNOX, KY'},
+{value: 'KMQT',label: 'NEGAUNEE, MI'},
+{value: 'KMKX',label: 'DOUSMAN, WI'},
+{value: 'KMPX',label: 'CHANHASSEN, MN'},
+{value: 'KAPX',label: 'GAYLORD, MI'},
+{value: 'KLNX',label: 'NORTH PLATTE, NE'},
+{value: 'KIWX',label: 'NORTH WEBSTER, IN'},
+{value: 'KOAX',label: 'VALLEY, NE'},
+{value: 'KPAH',label: 'PADUCAH, KY'},
+{value: 'KEAX',label: 'PLEASANT HILL, MO'},
+{value: 'KPUX',label: 'PUEBLO, CO'},
+{value: 'KDVN',label: 'DAVENPORT, IA'},
+{value: 'KUDX',label: 'NEW UNDERWOOD, SD'},
+{value: 'KRIW',label: 'RIVERTON, WY'},
+{value: 'KSGF',label: 'SPRINGFIELD, MO'},
+{value: 'KLSX',label: 'WELDON SPRING, MO'},
+{value: 'KFSD',label: 'SIOUX FALLS, SD'},
+{value: 'KTWX',label: 'TOPEKA, KS'},
+{value: 'KICT',label: 'WICHITA, KS'},
+{value: 'KVWX',label: 'OWENSVILLE, IN'},
+{value: 'KLTX',label: 'SHALLOTTE, NC'},
+{value: 'KCCX',label: 'STATE COLLEGE, PA'},
+{value: 'KLWX',label: 'STERLING, VA'},
+{value: 'KFCX',label: 'ROANOKE, VA'},
+{value: 'KRAX',label: 'CLAYTON, NC'},
+{value: 'KGYX',label: 'GRAY, ME'},
+{value: 'KDIX',label: 'FORT DIX, NJ'},
+{value: 'KPBZ',label: 'CORAOPOLIS, PA'},
+{value: 'KAKQ',label: 'WAKEFIELD, VA'},
+{value: 'KMHX',label: 'NEWPORT, NC'},
+{value: 'KGSP',label: 'GREER, SC'},
+{value: 'KILN',label: 'WILMINGTON, OH'},
+{value: 'KCLE',label: 'CLEVELAND, OH'},
+{value: 'KCAE',label: 'WEST COLUMBIA, SC'},
+{value: 'KBGM',label: 'BINGHAMTON, NY'},
+{value: 'KENX',label: 'EAST BERNE, NY'},
+{value: 'KBUF',label: 'BUFFALO, NY'},
+{value: 'KCXX',label: 'COLCHESTER, VT'},
+{value: 'KCBW',label: 'HOULTON, ME'},
+{value: 'KBOX',label: 'TAUNTON, MA'},
+{value: 'KOKX',label: 'UPTON, NY'},
+{value: 'KCLX',label: 'GRAYS, SC'},
+{value: 'KRLX',label: 'CHARLESTON, WV'},
+{value: 'KBRO',label: 'BROWNSVILLE, TX'},
+{value: 'KABX',label: 'ALBUQUERQUE, NM'},
+{value: 'KAMA',label: 'AMARILLO, TX'},
+{value: 'KFFC',label: 'PEACHTREE CITY, GA'},
+{value: 'KEWX',label: 'NEW BRAUNFELS, TX'},
+{value: 'KBMX',label: 'ALABASTER, AL'},
+{value: 'KCRP',label: 'CORPUS CHRISTI, TX'},
+{value: 'KFWS',label: 'FORT WORTH, TX'},
+{value: 'KEPZ',label: 'SANTA TERESA, NM'},
+{value: 'KHGX',label: 'DICKINSON, TX'},
+{value: 'KJAX',label: 'JACKSONVILLE, FL'},
+{value: 'KBYX',label: 'BOCA CHICA KEY, FL'},
+{value: 'KMRX',label: 'MORRISTOWN, TN'},
+{value: 'KLBB',label: 'LUBBOCK, TX'},
+{value: 'KLZK',label: 'NORTH LITTLE ROCK, AR'},
+{value: 'KLCH',label: 'LAKE CHARLES, LA'},
+{value: 'KOHX',label: 'OLD HICKORY, TN'},
+{value: 'KMLB',label: 'MELBOURNE, FL'},
+{value: 'KNQA',label: 'MILLINGTON, TN'},
+{value: 'KAMX',label: 'MIAMI, FL'},
+{value: 'KMAF',label: 'MIDLAND, TX'},
+{value: 'KTLX',label: 'OKLAHOMA CITY, OK'},
+{value: 'KHTX',label: 'HYTOP, AL'},
+{value: 'KMOB',label: 'MOBILE, AL'},
+{value: 'KTLH',label: 'TALLAHASSEE, FL'},
+{value: 'KTBW',label: 'RUSKIN, FL'},
+{value: 'KSJT',label: 'SAN ANGELO, TX'},
+{value: 'KINX',label: 'INOLA, OK'},
+{value: 'KSRX',label: 'CHAFFEE RIDGE, AR'},
+{value: 'KLIX',label: 'SLIDELL, LA'},
+{value: 'KDGX',label: 'BRANDON, MS'},
+{value: 'KSHV',label: 'SHREVEPORT, LA'},
+{value: 'KLGX',label: 'LANGLEY HILL, WA'},
+{value: 'KOTX',label: 'SPOKANE, WA'},
+{value: 'KEMX',label: 'TUCSON, AZ'},
+{value: 'KYUX',label: 'YUMA, AZ'},
+{value: 'KNKX',label: 'SAN DIEGO, CA'},
+{value: 'KMUX',label: 'LOS GATOS, CA'},
+{value: 'KHNX',label: 'HANFORD, CA'},
+{value: 'KSOX',label: 'SANTA ANA MOUNTAINS, CA'},
+{value: 'KATX',label: 'EVERETT, WA'},
+{value: 'KIWA',label: 'PHOENIX, AZ'},
+{value: 'KRTX',label: 'PORTLAND, OR'},
+{value: 'KSFX',label: 'SPRINGFIELD, ID'},
+{value: 'KRGX',label: 'NIXON, NV'},
+{value: 'KDAX',label: 'DAVIS, CA'},
+{value: 'KMTX',label: 'SALT LAKE CITY, UT'},
+{value: 'KPDT',label: 'PENDLETON, OR'},
+{value: 'KMSX',label: 'MISSOULA, MT'},
+{value: 'KESX',label: 'LAS VEGAS, NV'},
+{value: 'KVTX',label: 'LOS ANGELES, CA'},
+{value: 'KMAX',label: 'MEDFORD, OR'},
+{value: 'KFSX',label: 'FLAGSTAFF, AZ'},
+{value: 'KGGW',label: 'GLASGOW, MT'},
+{value: 'KLRX',label: 'ELKO, NV'},
+{value: 'KBHX',label: 'EUREKA, CA'},
+{value: 'KTFX',label: 'GREAT FALLS, MT'},
+{value: 'KCBX',label: 'BOISE, ID'},
+{value: 'KBLX',label: 'BILLINGS, MT'},
+{value: 'KICX',label: 'CEDAR CITY, UT'}
 ];
 
 export default Dashboard;

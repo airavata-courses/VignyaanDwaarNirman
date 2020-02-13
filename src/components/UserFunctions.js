@@ -42,16 +42,24 @@ export const getProfile = user => {
     });
 };
 
-export const getPlot = user => {
-  return axios
-    .get("users/plot", {
-      //headers: { Authorization: ` ${this.getToken()}` }
+
+
+export const getPlot = plot => {
+  console.log(plot.selectedFuncOption);
+    return axios
+    .post("users/dashboardsearch", {
+      radar_id: plot.selectedOption,
+      start_date: plot.start,
+      end_date: plot.end,
+      user_id: plot.consumer,
+      func_type: plot.selectedFuncOption
     })
     .then(response => {
-      console.log(response);
+      localStorage.setItem("timepass", response.data);
       return response.data;
     })
     .catch(err => {
       console.log(err);
     });
 };
+
