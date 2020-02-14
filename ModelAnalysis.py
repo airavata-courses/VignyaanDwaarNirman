@@ -59,7 +59,7 @@ def callback(ch, method, properties, body):
 
     api_connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
     api_channel = api_connection.channel()
-    api_channel.queue_declare(queue='apiData')
+    api_channel.queue_declare(queue='apiData', durable=True)
     api_channel.basic_publish(exchange='', routing_key='apiData', body=json.dumps(Payload))
 
     session_connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
