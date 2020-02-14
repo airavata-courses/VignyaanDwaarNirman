@@ -11,71 +11,63 @@ A weather forecasting application
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
-
-### Prerequisites
-
-What things you need to install the software and how to install them
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. To begin with, clone the repository on your system using the following command: 
 
 ```
-sudo apt-get install npm
+git clone 
 ```
 
-### Installing
+### Installing dependencies for all the services
 
-A step by step series of examples that tell you how to get a development env running
+What things you need to install the application and how to install them. 
 
-Say what the step will be
-
+#### Download & install RabbitMQ:  
+https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.2/rabbitmq-server-3.8.2.exe  
 ```
-Give the example
-```
+Set 2 environment variables:  
+- RABBITMQ_SERVER - that has the path to the installation directory  
+- RABBITMQ_NODENAME - rabbit@localhost  
+Append the following variable to path:  
+%RABBITMQ_SERVER%\sbin      
+&nbsp;open a command prompt and enter:  
+i) rabbitmqctl start_app  (You should see rabbitmqctl starting up)   
+ii) rabbitmqctl start_app (You should see rabbitmqctl ports in use)  
 
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+If you dont see rabbitmq running:
+go to start and click on RAbbitMQ service - START then run the 2 commads mentioned above again
 ```
 
-### And coding style tests
+##### Download & Install python anaconda package:
+Python-anaconda package: https://repo.anaconda.com/archive/Anaconda3-2019.10-Windows-x86_64.exe
 
-Explain what these tests test and why
+##### Download & install MongoDB
+https://www.mongodb.com/download-center/community select windows x64 version and download
+
+##### Download and install JDK
+https://download.oracle.com/otn-pub/java/jdk/13.0.2+8/d4173c853231432d94f001e99d882ca7/jdk-13.0.2_windows-x64_bin.exe
+
+Go to /VignyaanDwaarNirman, we will use the rqeuirements.txt file to install to install the dependencies for python, using this command.
 
 ```
-Give an example
+pip install requirements.txt
+```
+Go to /Front_End_Statging and run the following commands in order to get all the dependencies,
+```
+npm install -g
+```
+Go to /User_Mgmt_Statging and run the following commands in order to get all the dependencies,
+```
+npm install -g
+```
+Go to /Session_Mgmt_Statging and run the following commands in order to get all the dependencies,
+```
+npm install -g
+```
+Go to /Session_Mgmt_Statging and run the following commands in order to get all the dependencies,
+```
+npm install -g
 ```
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 
 ## Acknowledgments
