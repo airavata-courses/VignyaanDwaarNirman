@@ -51,6 +51,9 @@ class Dashboard extends Component {
   handleDate(date){
     this.setState({date})
   }
+  
+  handleDateTimePicker = (moment, name) =>
+    this.setState({ [name]: moment.toDate() });
 
   handleChange = selectedOption => {
     this.setState({ selectedOption });
@@ -107,6 +110,7 @@ class Dashboard extends Component {
   }
 
   onSubmit(e) {
+	console.log(this.state.start)
     this.userData = JSON.parse(localStorage.getItem("email"));
     e.preventDefault();
     const isValid = this.validate();
@@ -166,7 +170,9 @@ class Dashboard extends Component {
                 <DateTime
                   isValidDate={valid}
                   value={this.state.start}
-                  onChange={this.handleDate}
+                  onChange={moment =>
+                    this.handleDateTimePicker(moment, "start")
+                  }
                 />
                 <div style={{ fontSize: 12, color: "red" }}>
                   {this.state.startError}
@@ -178,7 +184,7 @@ class Dashboard extends Component {
                   placeholderText="MM/DD/YYYY"
                   isValidDate={valid}
                   value={this.state.end}
-                  onChange={this.handleDate}
+                  onChange={moment => this.handleDateTimePicker(moment, "end")}
                 />
                 <div style={{ fontSize: 12, color: "red" }}>
                   {this.state.endError}

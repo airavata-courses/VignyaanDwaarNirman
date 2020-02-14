@@ -63,3 +63,19 @@ export const getPlot = plot => {
     });
 };
 
+
+
+export const getSession = user => {
+  return axios
+    .get("users/session", {
+      //headers: { Authorization: ` ${this.getToken()}` }
+    })
+    .then(response => {
+      console.log(response);
+      return response.data;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
