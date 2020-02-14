@@ -14,7 +14,7 @@ A weather forecasting application
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. To begin with, clone the repository on your system using the following command: 
 
 ```
-git clone 
+git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git
 ```
 
 ## Setting up the environment
