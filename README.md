@@ -17,11 +17,11 @@ These instructions will get you a copy of the project up and running on your loc
 git clone 
 ```
 
-### Installing dependencies for all the services
+## Setting up the environment
 
-What things you need to install the application and how to install them. 
+Follow the steps below to install the dependencies and tools, necessary for running the application. 
 
-#### Download & install RabbitMQ:  
+### Download & install RabbitMQ:  
 https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.2/rabbitmq-server-3.8.2.exe  
 ```
 Set 2 environment variables:  
@@ -33,20 +33,20 @@ Append the following variable to path:
 i) rabbitmqctl start_app  (You should see rabbitmqctl starting up)   
 ii) rabbitmqctl start_app (You should see rabbitmqctl ports in use)  
 
-If you dont see rabbitmq running:
+If you dont see rabbitmq running: 
 go to start and click on RAbbitMQ service - START then run the 2 commads mentioned above again
 ```
 
-##### Download & Install python anaconda package:
+#### Download & Install python anaconda package:
 Python-anaconda package: https://repo.anaconda.com/archive/Anaconda3-2019.10-Windows-x86_64.exe
 
-##### Download & install MongoDB
+#### Download & install MongoDB
 https://www.mongodb.com/download-center/community select windows x64 version and download
 
-##### Download and install JDK
+#### Download and install JDK
 https://download.oracle.com/otn-pub/java/jdk/13.0.2+8/d4173c853231432d94f001e99d882ca7/jdk-13.0.2_windows-x64_bin.exe
 
-Go to /VignyaanDwaarNirman, we will use the rqeuirements.txt file to install to install the dependencies for python, using this command.
+Go to /VignyaanDwaarNirman, we will use the requirements.txt file to install to install the dependencies for python, using this command.
 
 ```
 pip install requirements.txt
@@ -68,10 +68,40 @@ Go to /Session_Mgmt_Statging and run the following commands in order to get all 
 npm install -g
 ```
 
+### Running the application
+Follow the steps below to get all the microservices running. be sure to run all of them before testing the application 
+#### Model Analysis Microservice
+- cd to ../VignyaanDwaarNirman/ModelAnalysis , in this directory and run the command below in a terminal :
+```
+python ModelAnalysis.py
+```
+#### Data Retreival Microservice
+- cd to ../VignyaanDwaarNirman/DataRetrival , in this directory and run the command below in a terminal :
+```
+python DataRetrival.py
+```
+
+Step3 Go to ../VignyaanDwaarNirman/ModelExecution , and open a terminal in this directory and run 
+python ModelExecution.py
+
+Step4 Go to ../VignyaanDwaarNirman/UserManagement , and open a terminal in this directory and run 
+```
+npm install
+npm run dev
+```
+
+Step5 Go to /VignyaanDwaarNirman/SessionManagement , and open a terminal in this directory and run 
+```
+npm install
+npm run dev
+```
+
+Step6 Go to /VignyaanDwaarNirman/APIGateway , 
+
+Step7 Go to /VignyaanDwaarNirman/FrontEnd , and open a terminal in this directory and run 
+```
+npm install
+npm start
+```
 
 
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
