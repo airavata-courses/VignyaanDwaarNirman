@@ -110,7 +110,6 @@ class Dashboard extends Component {
   }
 
   onSubmit(e) {
-    this.props.history.push(`/plot`);
     console.log(this.state.start);
     this.userData = JSON.parse(localStorage.getItem("email"));
     e.preventDefault();
@@ -126,7 +125,7 @@ class Dashboard extends Component {
       console.log("trying to send");
       getPlot(plot).then(res => {
         if (res) {
-          localStorage.setItem("url", JSON.stringify(res));
+          localStorage.setItem("plot_url", JSON.stringify(res));
           console.log("stored url");
           this.props.history.push(`/plot`);
         }
