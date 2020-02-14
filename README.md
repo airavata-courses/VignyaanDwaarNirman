@@ -70,35 +70,40 @@ npm install -g
 
 ### Running the application
 Follow the steps below to get all the microservices running. be sure to run all of them before testing the application 
-#### Model Analysis Microservice
+#### Model-Analysis-Microservice
 - cd to ../VignyaanDwaarNirman/ModelAnalysis , in this directory and run the command below in a terminal :
 ```
 python ModelAnalysis.py
 ```
-#### Data Retreival Microservice
+#### Data-Retreival-Microservice
 - cd to ../VignyaanDwaarNirman/DataRetrival , in this directory and run the command below in a terminal :
 ```
 python DataRetrival.py
 ```
-
-Step3 Go to ../VignyaanDwaarNirman/ModelExecution , and open a terminal in this directory and run 
+#### Model-Execution-Microservice
+- cd to ../VignyaanDwaarNirman/ModelExecution , in this directory and run the command below in a terminal :
+```
 python ModelExecution.py
-
-Step4 Go to ../VignyaanDwaarNirman/UserManagement , and open a terminal in this directory and run 
+```
+#### User-Management-Microservice
+- cd to ../VignyaanDwaarNirman/UserManagement , in this directory and run the commands below in a terminal:
 ```
 npm install
 npm run dev
 ```
-
-Step5 Go to /VignyaanDwaarNirman/SessionManagement , and open a terminal in this directory and run 
+#### Session-Management-Microservice
+- cd to /VignyaanDwaarNirman/SessionManagement , in this directory and run the commands below in a terminal:
 ```
 npm install
 npm run dev
 ```
-
-Step6 Go to /VignyaanDwaarNirman/APIGateway , 
-
-Step7 Go to /VignyaanDwaarNirman/FrontEnd , and open a terminal in this directory and run 
+#### API-Gateway-Microservice
+- cd to /VignyaanDwaarNirman/APIGateway , in this directory and run the command below in a terminal:
+```
+java -jar target/api-gateway-0.0.1-SNAPSHOT.jar
+```
+#### Front-End
+- cd to /VignyaanDwaarNirman/FrontEnd , in this directory and run the commands below in a terminal: 
 ```
 npm install
 npm start
