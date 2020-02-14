@@ -13,7 +13,7 @@ public class ToDataR {
     private final static String QUEUE_NAME = "searchParam";
 
 
-    public void send(Data data) throws IOException, TimeoutException {
+    public void send(Data data) {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
         try (Connection connection = factory.newConnection();
@@ -30,6 +30,9 @@ public class ToDataR {
             String message = builder.toString();
             channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
+        }
+        catch (Exception e){
+            System.out.println(e);
         }
     }
 }

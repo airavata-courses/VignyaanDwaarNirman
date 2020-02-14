@@ -75,8 +75,9 @@ public class APIController {
         System.out.println("Dashboard data: "+ data.toString());
         ToDataR toDataR = new ToDataR();
         toDataR.send(data);
-        Thread.sleep(10000);
+        System.out.println("Trying to create listener");
         FromModelListener listener = new FromModelListener();
+        System.out.println("Listener Created");
         String path = listener.receive();
         System.out.println("Sent to front-end: "+path);
         return path;

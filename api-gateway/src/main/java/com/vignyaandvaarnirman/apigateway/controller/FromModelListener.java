@@ -13,12 +13,14 @@ public class FromModelListener {
 
     String result;
 
-
-    public String receive() throws IOException, TimeoutException {
+    public FromModelListener() throws IOException, TimeoutException{
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("localhost");
-        Connection connection = factory.newConnection();
-        Channel channel = connection.createChannel();
+        connection = factory.newConnection();
+        channel = connection.createChannel();
+    }
+    public String receive() throws IOException, TimeoutException {
+        System.out.println("Entered Recieve Method");
         channel.queueDeclare(QUEUE_NAME, true, false, false, null);
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
             String message = new String(delivery.getBody(), "UTF-8");
