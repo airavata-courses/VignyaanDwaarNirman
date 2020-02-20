@@ -7,6 +7,7 @@ from datetime import datetime
 import nexradaws
 import pyart
 import os
+import base64
 
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))

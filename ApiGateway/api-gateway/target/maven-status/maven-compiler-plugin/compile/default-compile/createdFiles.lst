@@ -7,6 +7,6 @@ com\vignyaandvaarnirman\apigateway\model\Data.class
 com\vignyaandvaarnirman\apigateway\model\JWToken.class
 com\vignyaandvaarnirman\apigateway\model\RegUser.class
 com\vignyaandvaarnirman\apigateway\model\ProfileUser.class
+com\vignyaandvaarnirman\apigateway\model\User_Id.class
 com\vignyaandvaarnirman\apigateway\controller\APIController.class
-com\vignyaandvaarnirman\apigateway\model\UserId.class
-com\vignyaandvaarnirman\apigateway\controller\MessageConfig.class
+com\vignyaandvaarnirman\apigateway\controller\FromSession.class

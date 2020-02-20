@@ -14,10 +14,12 @@ class Session extends Component {
   componentDidMount(){
     this.userData = JSON.parse(localStorage.getItem("email"))
     console.log(this.userData.email)
+
     const user = {user_id: this.userData.email}
     console.log("sending user_id", user)
     getSession(user).then(res => {
       if(res){
+        console.log(res)
         this.setState({items: res})
       }
     })
@@ -35,19 +37,11 @@ class Session extends Component {
                   <Table.HeaderCell>Radar Location</Table.HeaderCell>
                   <Table.HeaderCell>Start Date</Table.HeaderCell>
                   <Table.HeaderCell>End Date</Table.HeaderCell>
-                  <Table.HeaderCell>Function Type</Table.HeaderCell>
+                  <Table.HeaderCell>Function Type </Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
 
-              <Table.Body>
-                <Table.Row>
-                  <Table.Cell>John Lilki</Table.Cell>
-                  <Table.Cell>September 14, 2013</Table.Cell>
-                  <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-                  <Table.Cell>No</Table.Cell>
-                  <Table.Cell>Yes</Table.Cell>
-                </Table.Row>
-              </Table.Body>
+              
             </Table>
           </div>
         </div>

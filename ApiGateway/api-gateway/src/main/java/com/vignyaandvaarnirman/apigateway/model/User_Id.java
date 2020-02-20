@@ -1,7 +1,10 @@
 package com.vignyaandvaarnirman.apigateway.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class User_Id {
 
+    @JsonProperty(value = "user_id")
     String user_id;
 
     public String getUserId() {

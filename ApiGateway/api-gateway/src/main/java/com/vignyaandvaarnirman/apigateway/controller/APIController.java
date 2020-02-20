@@ -58,18 +58,22 @@ public class APIController {
     @PostMapping(value = "/register")
     public String postUserRegisterationDetails(@RequestBody RegUser regUser) {
         RestTemplate restTemplate = new RestTemplate();
-        System.out.println("Inside register: "+regUser.getFirstName());
+        System.out.println("Inside register: "+regUser.getfirst_Name());
         String response = restTemplate.postForObject("http://localhost:5000/users/register",regUser, String.class);
         return response;
     }
 
     @PostMapping(value = "/session")
-    public String getSessionDetails(@RequestBody String user_id) throws Exception {
-        ToSession toSession = new ToSession();
-        System.out.println(user_id);
-        String res = toSession.send(user_id);
-        //System.out.println("User id sent.");
-        return res;
+    public String getSessionDetails(@RequestBody User_Id user_id) throws Exception {
+          System.out.println(user_id);
+          RestTemplate restTemplate = new RestTemplate();
+//        ToSession toSession = new ToSession();
+//        System.out.println(user_id);
+//        String res = toSession.send(user_id);
+//        //System.out.println("User id sent.");
+          String ans = restTemplate.postForObject("http://localhost:7000/sessions",user_id, String.class);
+          System.out.println(ans);
+          return ans;
     }
 
     @PostMapping(value = "/dashboardsearch")
