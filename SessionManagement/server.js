@@ -3,7 +3,7 @@ var app = express();
 var cors = require("cors");
 var bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-var port = process.env.PORT || 7000;
+var port = process.env.PORT || 6000;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -20,9 +20,11 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-var Sessions = require("./routes/UserSession");
+var Sessions = require("./routes/Sessions");
+var UserSessions = require("./routes/UserSession");
 
-app.use("/", Sessions);
+app.use("/", UserSessions);
+app.use("/sessions", Sessions);
 
 app.listen(port, function() {
   console.log("Server is running on port: " + port);

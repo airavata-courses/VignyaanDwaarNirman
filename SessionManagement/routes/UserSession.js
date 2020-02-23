@@ -8,27 +8,26 @@ sessions.use(cors());
 process.env.SECRET_KEY = "secret";
 
 sessions.post("/sessions", (req, res) => {
-  console.log("sessions me agaya hu ")
-  console.log(req.body.user_id)
-  
-  Session.find({"user_id" : req.body.user_id}, function(error2, data) {
-    console.log(data)
-    res.send({data});
-    if (error2){
-      res.json({error: "No Data Found"});
+  console.log("sessions me agaya hu ");
+  console.log(req.body.user_id);
+
+  Session.find({ user_id: req.body.user_id }, function(error2, data) {
+    console.log(data);
+    res.send({ data });
+    if (error2) {
+      res.json({ error: "No Data Found" });
       handleError(error2);
-    }            
+    }
   });
 });
 module.exports = sessions;
 
-
 // #!/usr/bin/env node
- 
+
 // const Session = require("../models/Session");
- 
+
 // var amqp = require('amqplib/callback_api');
- 
+
 // amqp.connect('amqp://localhost', function(error0, connection) {
 //     if (error0) {
 //         throw error0;
@@ -39,13 +38,13 @@ module.exports = sessions;
 //         }
 //         var queue = 'toSession';
 //         console.log("In Session");
- 
+
 //         channel.assertQueue(queue, {durable: false});
 //                        channel.prefetch(1);
 //                        channel.log(' [*] Waiting for messages. To exit press CTRL+C');
 //                        channel.consume(queue, function reply(msg) {
 //                                      console.log("Data in Session", JSON.parse(msg.content));
-                                         
+
 //                                      var data = JSON.parse(msg.content);
 //                                      var user_id = Object.values(data)[0];
 //                                      console.log("User ID ", user_id);
@@ -59,7 +58,7 @@ module.exports = sessions;
 //                                                                 else{
 //                                                                               console.log("User data retrived: ", res);
 //                                                                               channel.sendToQueue(msg.properties.replyTo, new Buffer(JSON.stringify(res)), {
-//                                                                                            correlationId: msg.properties.correlationId              
+//                                                                                            correlationId: msg.properties.correlationId
 //                                                                               });
 //                                                                 }
 //                                                   channel.ack(msg);
@@ -67,10 +66,10 @@ module.exports = sessions;
 //                        });
 //          });
 // });
- 
+
 //                        /* SessionChannel.consume(queue, function(msg) {
 //                                      console.log("Data ", JSON.parse(msg.content));
-                                         
+
 //                                      var data = JSON.parse(msg.content);
 //                                      var user_id = Object.values(data)[0];
 //                                      var queuee = 'fromSession';
@@ -92,7 +91,7 @@ module.exports = sessions;
 //                        });
 //          });
 // }); */
- 
+
 // amqp.connect('amqp://localhost', function(error0, connection) {
 //     if (error0) {
 //         throw error0;
@@ -105,7 +104,7 @@ module.exports = sessions;
 //         SessionChannel.assertQueue(queue, {durable: true});
 //                            SessionChannel.consume(queue, function(msg) {
 //                                          console.log("Data Session: ", JSON.parse(msg.content));
-                                         
+
 //                                          var data = JSON.parse(msg.content);
 //                                          var user_id = Object.values(data);
 //                                          console.log("User ID ", user_id);

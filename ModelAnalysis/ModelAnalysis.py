@@ -41,11 +41,14 @@ def callback(ch, method, properties, body):
     try:
         fig = plt.figure(figsize=(16,12))
         for i,scan in enumerate(results.iter_success(),start=1):
-            ax = fig.add_subplot(2,2,i)
-            radar = scan.open_pyart()
-            display = pyart.graph.RadarDisplay(radar)
-            display.plot('velocity',1,ax=ax,title="{} {}".format(scan.radar_id,scan.scan_time))
-            display.set_limits((-150, 150), (-150, 150), ax=ax)    
+            if "MDM" in str(scan.filename):
+                print("Found Unsupported File")
+            else:
+                ax = fig.add_subplot(2,2,i)
+                radar = scan.open_pyart()
+                display = pyart.graph.RadarDisplay(radar)
+                display.plot('velocity',1,ax=ax,title="{} {}".format(scan.radar_id,scan.scan_time))
+                display.set_limits((-150, 150), (-150, 150), ax=ax)    
         temp = str(start_date.date()).replace('-','')
         fig.savefig(os.getcwd() + "\\" + "plots" + "\\" + str(radar_id) + "_" + str(temp) + "_velocity"+".png")
         file_location = os.getcwd() + "\\" + "plots" + "\\" + str(radar_id) + "_" + str(temp) + "_velocity"+".png"
