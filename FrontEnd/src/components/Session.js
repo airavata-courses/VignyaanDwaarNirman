@@ -8,7 +8,7 @@ class Session extends Component {
   constructor(props){
     super(props)
     this.state = {
-      items: {}
+      items: [],
     }
   }
   componentDidMount(){
@@ -20,29 +20,27 @@ class Session extends Component {
     getSession(user).then(res => {
       if(res){
         console.log(res)
-        this.setState({items: res})
+        this.setState({items: res.data})
       }
     })
   }
   render() {
     return (
       <div className="container">
-      
         <div className="row">
           <div className="col-md-10 mt-5 mx-auto">
-            <Table striped>
-              <Table.Header>
-                <Table.Row>
-                  <Table.HeaderCell>Timestamp</Table.HeaderCell>
-                  <Table.HeaderCell>Radar Location</Table.HeaderCell>
-                  <Table.HeaderCell>Start Date</Table.HeaderCell>
-                  <Table.HeaderCell>End Date</Table.HeaderCell>
-                  <Table.HeaderCell>Function Type </Table.HeaderCell>
-                </Table.Row>
-              </Table.Header>
-
-              
-            </Table>
+          <table>
+          <tr>{ this.state.items.map( item => <item>{item.radar_id} </item>) }</tr>
+            <tr> { this.state.items.map( item => <item>{item.start_date}</item>) }</tr>
+              <tr>{ this.state.items.map( item => <item>{item.end_date}</item>) } </tr>
+              <tr>{ this.state.items.map( item => <item>{item.timestamp} </item>) } </tr>
+              <tr>{ this.state.items.map( item => <item>{item.function_type}</item>) } </tr>
+          </table>
+            
+            
+            
+            
+            
           </div>
         </div>
       </div>
