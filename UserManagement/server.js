@@ -14,14 +14,14 @@ app.use(
   })
 );
 
-const mongoU = require("./config/keys").mongoURI;
+const mongoU = require("./src/config/keys").mongoURI;
 
 mongoose
   .connect(mongoU, { useNewUrlParser: true })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-var Users = require("./routes/Users");
+var Users = require("./src/routes/Users");
 
 app.use("/users", Users);
 

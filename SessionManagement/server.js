@@ -13,15 +13,15 @@ app.use(
   })
 );
 
-const mongoU = require("./config/keys").mongoURI;
+const mongoU = require("./src/config/keys").mongoURI;
 
 mongoose
   .connect(mongoU, { useNewUrlParser: true })
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
-var Sessions = require("./routes/Sessions");
-var UserSessions = require("./routes/UserSession");
+var Sessions = require("./src/routes/Sessions");
+var UserSessions = require("./src/routes/UserSession");
 
 app.use("/", UserSessions);
 app.use("/sessions", Sessions);
