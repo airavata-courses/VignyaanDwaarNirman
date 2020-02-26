@@ -1,15 +1,15 @@
-FROM continuumio/miniconda:latest
 
+FROM continuumio/miniconda3
 
-COPY ./src
 
 WORKDIR /src
 
-RUN \
-    sudo apt-get -y install pip \
-    pip install conda \
-    conda env create -f pyart_env.yml \
-    conda activate pyart_env \
-    cd src
+COPY pyart_env.yml .
 
-CMD python DataRetrival.py
+RUN conda env create -f pyart_env.yml
+
+SHELL ["conda", "run", "-n", "pyart_env", "/bin/bash", "-c"]
+
+COPY /src/DataRetrival.py .
+
+ENTRYPOINT ["conda", "run", "-n", "pyart_env", "python", "DataRetrival.py"]
