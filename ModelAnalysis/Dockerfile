@@ -1,14 +1,13 @@
-FROM python:latest
-
-COPY ./src
+FROM continuumio/miniconda3
 
 WORKDIR /src
 
-RUN \
-    sudo apt-get -y install pip \
-    pip install conda \
-    conda env create -f pyart_env.yml \
-    conda activate pyart_env \
-    cd src
+COPY pyart_env.yml .
 
-CMD python ModelAnalysis.py
+RUN conda env create -f pyart_env.yml
+
+SHELL ["conda", "run", "-n", "pyart_env", "/bin/bash", "-c"]
+
+COPY /src/ModelAnalysis.py .
+
+ENTRYPOINT ["conda", "run", "-n", "pyart_env", "python", "ModelAnalysis.py"]
