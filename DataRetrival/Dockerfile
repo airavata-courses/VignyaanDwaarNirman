@@ -1,4 +1,5 @@
-FROM python:latest
+FROM continuumio/miniconda:latest
+
 
 COPY ./src
 
