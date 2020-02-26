@@ -1,0 +1,88 @@
+version: "3"
+services:
+  FrontEnd:
+    build: "./FrontEnd"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - nodejs
+
+  api-gateway:
+    build: "./ApiGateway/api-gateway"
+    ports:
+      - "8090:8090"
+    depends_on:
+      - jdk
+      - amqp
+
+  UserManagement:
+    build: "./UserManagement"
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+      - nodejs
+    environment:
+      - MONGO_DB_URI=mongodb://db/microservices
+
+  SessionManagement:
+    build: "./SessionManagement"
+    ports:
+      - "6000:6000"
+    depends_on:
+      - db
+      - nodejs
+      - amqp
+    environment:
+      - MONGO_DB_URI=mongodb://db/microservices
+
+  DataRetrival:
+    build: "./DataRetrival"
+    depends_on:
+      - amqp
+      - py
+
+  ModelExecution:
+    build: "./ModelExecution"
+    depends_on:
+      - amqp
+      - py
+
+  ModelAnalysis:
+    build: "./ModelAnalysis"
+    depends_on:
+      - amqp
+      - py
+
+  db:
+    image: mongo
+    ports:
+      - "27017:27017"
+
+  nodejs:
+    image: node
+
+  py:
+    image: python
+
+  jdk:
+    image: openjdk
+
+  amqp:
+    image: rabbitmq
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./web/public:/srv/www/static
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - FrontEnd
+      - api-gateway
+      - UserManagement
+      - SessionManagement
+      - DataRetrival
+      - ModelAnalysis
+      - ModelExecution
