@@ -5,9 +5,9 @@ COPY ./src
 WORKDIR /src
 
 RUN \
-    pip install requirements.txt \
-    npm install node-gyp-pre \
+    pip install conda \
+    conda env create -f pyart_env.yml \
+    conda activate pyart_env \
+    cd src
 
-EXPOSE 3000
-
-CMD npm start
+CMD python DataRetrival.py
