@@ -1,14 +1,11 @@
-FROM node:latest
+FROM node:alpine
 
 COPY . /src
 
 WORKDIR /src
 
 RUN \
-    npm install \
-    npm install node-gyp-pre \
-    npm install bcrypt \
-    npm install nodemon
+    npm install 
 
 EXPOSE 6000
 

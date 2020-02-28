@@ -1,15 +1,15 @@
-FROM node:latest
+FROM node:alpine
 
-COPY ./src
+COPY . /src
 
 WORKDIR /src
 
 RUN \
-    npm install \
-    npm install node-gyp-pre \
-    npm install bcrypt \
-    npm install nodemon
+    npm install  
+
 
 EXPOSE 5000
 
-CMD npm run dev
+CMD ["npm", "rebuild"]
+
+CMD ["node", "server.js"]
