@@ -1,12 +1,13 @@
-FROM node:alpine
-
-COPY . /src
+FROM node:10
 
 WORKDIR /src
 
-RUN \
-    npm install 
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
 
 EXPOSE 5000
 
-CMD npm start
+CMD [ "npm", "start" ]
