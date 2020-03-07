@@ -1,0 +1,23 @@
+language: java
+jdk: openjdk11
+sudo: false
+cache:
+  directories:
+    - $HOME/.m2
+    
+services:
+  - docker
+
+script:
+  - mvn -Dmaven.test.skip test-compile jar:test-jar install
+  
+  
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO= AnshulV98/api-gateway
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "api-gateway" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker build -t api-gateway .
+  - docker tag api-gateway-microservice $REPO:$TAG
+  - docker push $REPO:$TAG  
+      
+      
