@@ -1,0 +1,19 @@
+language: java
+jdk: openjdk11
+sudo: false
+cache:
+  directories:
+    - $HOME/.m2
+
+services:
+  - docker
+
+script:
+  - cd api-gateway
+  - mvn -Dmaven.test.skip test-compile jar:test-jar install
+
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=ansvohra/api-gateway
+  - docker build -t ansvohra/api-gateway:latest .
+  - docker push orenda15/api-gateway:latest
