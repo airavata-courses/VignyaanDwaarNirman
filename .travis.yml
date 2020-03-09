@@ -16,4 +16,4 @@ after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=ansvohra/api-gateway
   - docker build -t ansvohra/api-gateway:latest .
-  - docker push orenda15/api-gateway:latest
+  - docker push ansvohra/api-gateway:latest
