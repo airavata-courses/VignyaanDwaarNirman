@@ -12,7 +12,7 @@ import com.rabbitmq.client.Channel;
 
 @SpringBootApplication
 public class ApiGatewayApplication {
-
+	//mock comment to test .travis.yml
     @Profile("main-app")
     @Bean
     public CommandLineRunner usage() {
