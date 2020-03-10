@@ -1,0 +1,18 @@
+language: node_js
+node_js: 10.16
+services:
+    - docker
+
+before-install:
+# - npm i -g npm@version-number
+
+install:
+    - npm install
+    
+script: 
+    - npm run test
+    
+after-success:
+    - docker login -u $DOCKER_USER -p $DOCKER_PASS
+    - docker build -t ansvohra/user-management:latest .
+    - docker push teamyoda/user-management:latest    
