@@ -6,6 +6,8 @@ services:
   - docker
 
 script:
+  - npm install bcrypt 
+  - npm install nodemon
   - npm install
   
 after_success:
