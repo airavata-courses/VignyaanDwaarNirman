@@ -1,0 +1,15 @@
+language: python
+python: 3.7
+sudo: false
+
+services:
+  - docker
+
+script:
+  - echo "dockerize_dataRetrival"
+
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=ansvohra/data_retrival
+  - docker build -t ansvohra/data_retrival:latest .
+  - docker push ansvohra/data_retrival:latest
