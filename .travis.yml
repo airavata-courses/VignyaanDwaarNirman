@@ -1,0 +1,15 @@
+language: python
+python: 3.7
+sudo: false
+
+services:
+  - docker
+
+script:
+  - echo "Model Analysis"
+
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=ansvohra/model_analysis
+  - docker build -t ansvohra/model_analysis:latest .
+  - docker push ansvohra/model_analysis:latest
