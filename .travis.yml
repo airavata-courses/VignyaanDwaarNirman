@@ -6,7 +6,7 @@ services:
   - docker
 
 script:
-  - echo "Model Executio"
+  - echo "Model Execution"
 
 after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
