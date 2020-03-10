@@ -6,7 +6,7 @@ services:
   - docker
 
 script:
-  - echo "Model Analysis"
+  - echo "Model Analysi"
 
 after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
