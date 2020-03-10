@@ -1,0 +1,16 @@
+language: node
+node: 10
+sudo: false
+
+services:
+  - docker
+
+script:
+  - cd Frontend
+  - npm install
+
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=ansvohra/frontend
+  - docker build -t ansvohra/frontend:latest .
+  - docker push ansvohra/frontend:latest
