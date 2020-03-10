@@ -1,0 +1,15 @@
+language: node
+node: 10
+sudo: false
+
+services:
+  - docker
+
+script:
+  - npm install
+  
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=ansvohra/session_management
+  - docker build -t ansvohra/session_management:latest .
+  - docker push ansvohra/session_management:latest
