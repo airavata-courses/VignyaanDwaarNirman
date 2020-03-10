@@ -1,89 +1,81 @@
 version: "3"
 services:
-  FrontEnd:
+  rabbit:
+      hostname: rabbit
+      image: rabbitmq
+      ports:
+        - "5674:5672"  # we forward this port because it's useful for debugging
+        - "15674:15672"  # here, we can access rabbitmq management plugin
+
+  front-end:
     build: "./FrontEnd"
     ports:
       - "3000:3000"
-    depends_on:
-      - nodejs
 
   api-gateway:
     build: "./ApiGateway/api-gateway"
     ports:
       - "8090:8090"
     depends_on:
-      - jdk
-      - amqp
+      - rabbit
 
-  UserManagement:
+  user-management:
     build: "./UserManagement"
     ports:
       - "5000:5000"
-    depends_on:
-      - db
-      - nodejs
     environment:
       - MONGO_DB_URI=mongodb://db/microservices
 
-  SessionManagement:
+  session-management:
     build: "./SessionManagement"
     ports:
       - "7000:7000"
     depends_on:
-      - db
-      - nodejs
-      - amqp
+      - rabbit
     environment:
       - MONGO_DB_URI=mongodb://db/microservices
 
-  DataRetrival:
+  data-retrival:
     build: "./DataRetrival"
     depends_on:
-      - amqp
-      - py
+      - rabbit
 
-  ModelExecution:
+  model-execution:
     build: "./ModelExecution"
     depends_on:
-      - amqp
-      - py
+      - rabbit
 
-  ModelAnalysis:
+  model-analysis:
     build: "./ModelAnalysis"
     depends_on:
-      - amqp
-      - py
+      - rabbit
 
-  db:
-    image: mongo
-    ports:
-      - "27017:27017"
+  # db:
+    # image: mongo
+    # ports:
+      # - "27017:27017"
 
-  nodejs:
-    image: node
+  # nodejs:
+    # image: node:10
 
-  py:
-    image: python
+  # py:
+    # image: continuumio/miniconda3
 
-  jdk:
-    image: openjdk
+  # jdk:
+    # image: openjdk:11.0.6-jre-slim-buster
 
-  amqp:
-    image: rabbitmq
-    ports:
-      - "5672:5672"
 
-  nginx:
-    image: nginx:latest
-    ports:
-      - "8080:8080"
-    volumes:
-      - ./web/public:/srv/www/static
-      - ./default.conf:/etc/nginx/conf.d/default.conf
-    depends_on:
-      - FrontEnd
-      - UserManagement
-      - SessionManagement
-      - DataRetrival
-      - ModelAnalysis
-      - ModelExecution
+  # nginx:
+    # image: nginx:latest
+    # ports:
+      # - "8080:8080"
+    # volumes:
+      # - ./web/public:/srv/www/static
+      # - ./default.conf:/etc/nginx/conf.d/default.conf
+    # depends_on:
+      # - FrontEnd
+      # - UserManagement
+      # - SessionManagement
+      # - DataRetrival
+      # - ModelAnalysis
+      # - ModelExecution

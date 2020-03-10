@@ -8,7 +8,11 @@ import time
 
 logging.basicConfig()
 
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+time.sleep(15)
+# establishing connection to RabbitMQ server
+credentials = pika.PlainCredentials(username='guest', password='guest')
+connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbit' , port=5672, credentials=credentials))
+#connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbit'))
 channel = connection.channel()
 channel.queue_declare(queue='searchParam')
 
@@ -35,7 +39,7 @@ def callback(ch, method, properties, body):
     
     #payload = {'function_type':function_type, 'radar_id':radar_id,'start':str("2019,5,31,17,0"),'end':str("2019,5,31,18,0")}
     payload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":start_date, "end_date":end_date,"timestamp":str(timestamp)}
-    microservice_connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    microservice_connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbit' , port=5672, credentials=credentials))
     microservice_channel = microservice_connection.channel()
     microservice_channel.exchange_declare(exchange='topic_logs', exchange_type='topic')
     routing_key = payload['function_type']
