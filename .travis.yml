@@ -11,6 +11,8 @@ script:
   - npm install
      
 after-success:
-    - docker login -u $DOCKER_USER -p $DOCKER_PASS
-    - docker build -t ansvohra/user-management:latest .
-    - docker push teamyoda/user-management:latest    
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=ansvohra/user-management
+  - docker build -t ansvohra/user-management:latest .
+  - docker push ansvohra/user-management:latest
+  
