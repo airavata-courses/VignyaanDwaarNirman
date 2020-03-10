@@ -6,7 +6,6 @@ services:
   - docker
 
 script:
-  - cd Frontend
   - npm install
 
 after_success:
