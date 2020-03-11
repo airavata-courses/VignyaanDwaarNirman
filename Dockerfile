@@ -1,15 +1,15 @@
 
-FROM continuumio/miniconda3
 
+FROM python:3.7
 
 WORKDIR /src
 
-COPY pyart_env.yml .
+COPY . /src
 
-RUN conda env create -f pyart_env.yml
+RUN pip install --no-cache-dir -r requirements.txt
 
-SHELL ["conda", "run", "-n", "pyart_env", "/bin/bash", "-c"]
+RUN pip install arm-pyart
 
 COPY /src/ModelAnalysis.py .
 
-ENTRYPOINT ["conda", "run", "-n", "pyart_env", "python", "ModelAnalysis.py"]
+CMD python ModelAnalysis.py
