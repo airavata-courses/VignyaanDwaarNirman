@@ -21,7 +21,7 @@ class Login extends Component {
     let passwordError = "";
 
     if (!this.state.password) {
-      passwordError = "Incorrect Passowrd";
+      passwordError = "Incorrect  Passowrd";
     }
 
     if (!this.state.email.includes("@")) {

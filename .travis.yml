@@ -11,9 +11,6 @@ script:
   - npm install
 
 after_success:
-  - sudo apt --assume-yes install docker.io
-  - sudo systemctl start docker
-  - sudo systemctl enable docker
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=ansvohra/frontend
   - docker build -t ansvohra/frontend:latest .
