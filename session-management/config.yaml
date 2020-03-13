@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sessionmanagement
+spec:
+ type: LoadBalancer
+ ports:
+  - targetPort: 7000
+    port: 7000
+    nodePort: 30010
+ selector:
+  app: session-management
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sessionmanagement
+spec:
+  selector:
+    matchLabels:
+      app: session-management
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: session-management
+    spec:
+      containers:
+      - name: session-management-microservice
+        imagePullPolicy: Always
+        image: ansvohra/session_management
+        ports:
+        - containerPort: 7000
