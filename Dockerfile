@@ -10,4 +10,4 @@ RUN \
 
 EXPOSE 7000
 
-CMD npm run dev
+CMD node server.js
