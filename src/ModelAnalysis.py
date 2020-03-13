@@ -8,9 +8,10 @@ import nexradaws
 import pyart
 import os
 import base64
+import time
 
-
-connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+credentials = pika.PlainCredentials(username='guest', password='guest')
+connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbit' , port=5672, credentials=credentials))
 channel = connection.channel()
 channel.exchange_declare(exchange="topic_logs", exchange_type = "topic")
 result = channel.queue_declare(queue='', exclusive= True)
@@ -60,22 +61,13 @@ def callback(ch, method, properties, body):
     	myString = base64.b64encode(img.read())
     SessionPayload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":str(start_date), "end_date":str(end_date),"timestamp":timestamp, "file_location":str(myString.decode("utf-8"))}
     ApiPayload = {"file_location":str(myString.decode("utf-8"))}
-    #Payload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":str(start_date), "end_date":str(end_date),"timestamp":timestamp, "file_location":file_location}
-    #SessionPayload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":str(start_date), "end_date":str(end_date),"timestamp":timestamp, "file_location":file_location}
-    #ApiPayload = {"file_location":file_location}
-    # modelAnaly_connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-    # modelAnaly_channel = modelAnaly_connection.channel()
-    # #modelExec_channel.queue_declare(queue='sessionData')
-    # modelAnaly_channel.exchange_declare(exchange='logs', exchange_type='fanout')
-    # sessionPayload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":str(start_date), "end_date":str(end_date),"timestamp":timestamp, "file_location":file_location}
-    # modelAnaly_channel.basic_publish(exchange='logs', routing_key='', body=json.dumps(sessionPayload))
 
-    api_connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    api_connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbit' , port=5672, credentials=credentials))
     api_channel = api_connection.channel()
     api_channel.queue_declare(queue='apiData', durable=True)
     api_channel.basic_publish(exchange='', routing_key='apiData', body=json.dumps(ApiPayload))
 
-    session_connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+    session_connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbit' , port=5672, credentials=credentials))
     session_channel = session_connection.channel()
     session_channel.queue_declare(queue='sessionData')
     session_channel.basic_publish(exchange='', routing_key='sessionData', body=json.dumps(SessionPayload))
