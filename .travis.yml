@@ -5,15 +5,12 @@ sudo: false
 services:
   - docker
 
-before_install:
-  - sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-  - curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-  - cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list deb
-    https://apt.kubernetes.io/ kubernetes-xenial main
-    EOF
-  - sudo apt-get update
-  - sudo apt-get install -y kubelet kubeadm kubectl
-  - sudo apt-mark hold kubelet kubeadm kubectl
+install:
+  - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+  - chmod +x ./kubectl
+  - sudo mv ./kubectl /usr/local/bin/kubectl
+  - mkdir ${HOME}/.kube
+  - echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config
 
 script:
   - npm install bcrypt
