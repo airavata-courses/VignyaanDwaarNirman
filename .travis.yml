@@ -17,3 +17,11 @@ after_success:
   - export REPO=ansvohra/api-gateway
   - docker build -t ansvohra/api-gateway:latest .
   - docker push ansvohra/api-gateway:latest
+  - git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git
+  - cd VignyaanDwaarNirman
+  - git pull
+  - git checkout dockerize_apiGateway
+  - chmod 400 vdn_ssh.pem
+  - cat Dockerfile
+  - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
+  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 "sudo rm -rf VignyaanDwaarNirman && git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git && cd VignyaanDwaarNirman && git checkout kubectl && cd api-gateway && export KUBECONFIG=/etc/kubernetes/admin.conf && sudo kubectl delete service apigateway --ignore-not-found=true && sudo kubectl delete deployment apigateway --ignore-not-found=true && sudo kubectl apply -f config.yaml"
