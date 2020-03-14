@@ -13,3 +13,8 @@ after_success:
   - export REPO=ansvohra/model_execution
   - docker build -t ansvohra/model_execution:latest .
   - docker push ansvohra/model_execution:latest
+  - git pull
+  - git checkout dockerize_modelExecution
+  - chmod 400 vdn_ssh.pem
+  - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
+  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 "sudo rm -rf VignyaanDwaarNirman && git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git && cd VignyaanDwaarNirman && git checkout kubectl && cd model-execution && export KUBECONFIG=/etc/kubernetes/admin.conf && sudo kubectl delete service modelexecution --ignore-not-found=true && sudo kubectl delete deployment modelexecution --ignore-not-found=true && sudo kubectl apply -f config.yaml"
