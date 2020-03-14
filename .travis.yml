@@ -15,7 +15,11 @@ after-success:
   - export REPO=ansvohra/frontend
   - docker build -t ansvohra/frontend:latest .
   - docker push ansvohra/frontend:latest
-  - chmod 400 vdn_ssh.pem
+  - git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git
+  - cd VignyaanDwaarNirman
+  - git pull
+  - git checkout dockerize_frontEnd
+  - cat Dockerfile
   - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
   - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 " rm -rf VignyaanDwaarNirman
   - git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git
