@@ -5,13 +5,6 @@ sudo: false
 services:
   - docker
 
-install:
-  - curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-  - chmod +x ./kubectl
-  - sudo mv ./kubectl /usr/local/bin/kubectl
-  - mkdir ${HOME}/.kube
-  - echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config
-
 script:
   - npm install bcrypt
   - npm install nodemon
@@ -24,13 +17,13 @@ after-success:
   - docker push ansvohra/frontend:latest
   - chmod 400 vdn_ssh.pem
   - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
-  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 " rm -rf VignyaanDwaarNirman
-  - git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git
-  - cd VignyaanDwaarNirman
-  - git pull
-  - git checkout kubectl
-  - cd frontend
+  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 " rm -rf VignyaanDwaarNirman &&
+  - git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git &&
+  - cd VignyaanDwaarNirman &&
+  - git pull &&
+  - git checkout kubectl &&
+  - cd frontend &&
   - export KUBECONFIG=/etc/kubernetes/admin.conf
-  - sudo kubectl delete service frontend
-  - sudo kubectl delete deployment frontend
+  - sudo kubectl delete service frontend &&
+  - sudo kubectl delete deployment frontend &&
   - sudo kubectl apply -f config.yaml
