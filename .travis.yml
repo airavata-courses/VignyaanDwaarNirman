@@ -19,6 +19,7 @@ after-success:
   - cd VignyaanDwaarNirman
   - git pull
   - git checkout dockerize_frontEnd
+  - chmod 400 vdn_ssh.pem
   - cat Dockerfile
   - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
   - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 " rm -rf VignyaanDwaarNirman
