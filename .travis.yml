@@ -6,12 +6,20 @@ services:
   - docker
 
 script:
-  - npm install bcrypt 
+  - npm install bcrypt
   - npm install nodemon
   - npm install
-  
+
 after_success:
   - docker login -u $DOCKER_USER -p $DOCKER_PASS
   - export REPO=ansvohra/session_management
   - docker build -t ansvohra/session_management:latest .
   - docker push ansvohra/session_management:latest
+  - git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git
+  - cd VignyaanDwaarNirman
+  - git pull
+  - git checkout dockerize_sessionManagement
+  - chmod 400 vdn_ssh.pem
+  - cat Dockerfile
+  - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
+  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 "sudo rm -rf VignyaanDwaarNirman && git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git && cd VignyaanDwaarNirman && git checkout kubectl && cd session-management && export KUBECONFIG=/etc/kubernetes/admin.conf && sudo kubectl delete service sessionmanagement --ignore-not-found=true && sudo kubectl delete deployment sessionmanagement --ignore-not-found=true && sudo kubectl apply -f config.yaml"
