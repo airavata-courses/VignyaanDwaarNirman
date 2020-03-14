@@ -25,6 +25,4 @@ after-success:
   - cd frontend
   - cat config.yaml
   - export KUBECONFIG=/etc/kubernetes/admin.conf
-  - sudo kubectl delete service frontend &
-  - sudo kubectl delete deployment frontend &
-  - sudo kubectl apply -f config.yaml
+  - sudo kubectl version
