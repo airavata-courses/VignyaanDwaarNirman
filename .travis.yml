@@ -24,13 +24,12 @@ after-success:
   - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
   - |
     ssh -i vdn_ssh.pem ubuntu@149.165.168.66 <<EOF
+    ls |
     sudo rm -rf VignyaanDwaarNirman |
+    ls |
     git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git |
     cd VignyaanDwaarNirman |
     git pull | 
     git checkout kubectl |
-    cd frontend |
-    cat config.yaml |
-    export KUBECONFIG=/etc/kubernetes/admin.conf |
-    sudo kubectl version 
+    ls |
     EOF
