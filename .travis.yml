@@ -13,3 +13,9 @@ after_success:
   - export REPO=ansvohra/model_analysis
   - docker build -t ansvohra/model_analysis:latest .
   - docker push ansvohra/model_analysis:latest
+  - cd VignyaanDwaarNirman
+  - git pull
+  - git checkout dockerize_modelAnalysis
+  - chmod 400 vdn_ssh.pem
+  - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
+  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 "sudo rm -rf VignyaanDwaarNirman && git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git && cd VignyaanDwaarNirman && git checkout kubectl && cd model-analysis && export KUBECONFIG=/etc/kubernetes/admin.conf && sudo kubectl delete service modelanalysis --ignore-not-found=true && sudo kubectl delete deployment modelanalysis --ignore-not-found=true && sudo kubectl apply -f config.yaml"
