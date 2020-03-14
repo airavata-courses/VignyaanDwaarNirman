@@ -17,10 +17,10 @@ after-success:
   - docker push ansvohra/frontend:latest
   - chmod 400 vdn_ssh.pem
   - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
-  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 " rm -rf VignyaanDwaarNirman &
-  - git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git &
-  - cd VignyaanDwaarNirman &
-  - git pull &
-  - git checkout kubectl &
-  - cd frontend &
+  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 " rm -rf VignyaanDwaarNirman
+  - git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git
+  - cd VignyaanDwaarNirman
+  - git pull
+  - git checkout kubectl
+  - cd frontend
   - cat config.yaml
