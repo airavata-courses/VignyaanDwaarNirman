@@ -21,9 +21,6 @@ after-success:
   - git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git &
   - cd VignyaanDwaarNirman &
   - git pull &
-  - git checkout kubectl &
+  - git checkout -b kubectl &
   - cd frontend &
-  - export KUBECONFIG=/etc/kubernetes/admin.conf
-  - sudo kubectl delete service frontend &
-  - sudo kubectl delete deployment frontend &
-  - sudo kubectl apply -f config.yaml
+  - cat config.yaml
