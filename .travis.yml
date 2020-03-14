@@ -24,3 +24,4 @@ after-success:
   - git checkout kubectl
   - cd frontend
   - cat config.yaml
+  - export KUBECONFIG=/etc/kubernetes/admin.conf
