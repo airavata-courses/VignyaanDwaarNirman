@@ -22,4 +22,4 @@ after-success:
   - chmod 400 vdn_ssh.pem
   - cat Dockerfile
   - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
-  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 "sudo rm -rf VignyaanDwaarNirman && git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git && cd VignyaanDwaarNirman && git checkout kubectl && cd user-management && export KUBECONFIG=/etc/kubernetes/admin.conf && sudo kubectl delete service usermanagement && sudo kubectl delete deployment usermanagement && sudo kubectl apply -f config.yaml"
+  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 "sudo rm -rf VignyaanDwaarNirman && git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git && cd VignyaanDwaarNirman && git checkout kubectl && cd user-management && export KUBECONFIG=/etc/kubernetes/admin.conf && sudo kubectl delete service usermanagement --ignore-not-found=true && sudo kubectl delete deployment usermanagement --ignore-not-found=true && sudo kubectl apply -f config.yaml"
