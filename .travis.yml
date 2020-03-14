@@ -11,8 +11,6 @@ install:
   - sudo mv ./kubectl /usr/local/bin/kubectl
   - mkdir ${HOME}/.kube
   - echo "$KUBE_CONFIG" | base64 --decode > ${HOME}/.kube/config
-  - sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
-  - sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 script:
   - npm install bcrypt
