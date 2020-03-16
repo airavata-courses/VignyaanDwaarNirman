@@ -9,7 +9,7 @@ import time
 logging.basicConfig()
 
 credentials = pika.PlainCredentials(username='guest', password='guest')
-connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbitmq-service' , port=35672, credentials=credentials))
+connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbitmq-service' , port=5672, credentials=credentials))
 channel = connection.channel()
 channel.queue_declare(queue='searchParam')
 
@@ -36,7 +36,7 @@ def callback(ch, method, properties, body):
     timestamp = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%d %H:%M:%S')
     
     payload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":start_date, "end_date":end_date,"timestamp":str(timestamp)}
-    microservice_connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbitmq-service' , port=35672, credentials=credentials))
+    microservice_connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbitmq-service' , port=5672, credentials=credentials))
     microservice_channel = microservice_connection.channel()
     microservice_channel.exchange_declare(exchange='topic_logs', exchange_type='topic')
     routing_key = payload['function_type']
