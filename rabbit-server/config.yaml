@@ -12,7 +12,7 @@ spec:
   app: rabbit
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: RabbitmqCluster
 metadata:
   name: rabbit
 spec:
