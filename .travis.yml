@@ -12,3 +12,11 @@ after_success:
   - export REPO=ansvohra/rabbitmq
   - docker build -t ansvohra/rabbitmq:latest .
   - docker push ansvohra/rabbitmq:latest
+  - git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git
+  - cd VignyaanDwaarNirman
+  - git pull
+  - git checkout dockerize_rabbitmq
+  - chmod 400 vdn_ssh.pem
+  - cat dockerfile
+  - ssh -o StrictHostKeyChecking=no -i vdn_ssh.pem ubuntu@149.165.168.66 uptime
+  - ssh -i vdn_ssh.pem ubuntu@149.165.168.66 "sudo rm -rf VignyaanDwaarNirman && git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git && cd VignyaanDwaarNirman && git checkout kubectl && cd rabbit-server && export KUBECONFIG=/etc/kubernetes/admin.conf && sudo kubectl delete service rabbit --ignore-not-found=true && sudo kubectl delete deployment rabbit --ignore-not-found=true && sudo kubectl apply -f config.yaml"
