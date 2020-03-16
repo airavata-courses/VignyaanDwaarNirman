@@ -1,0 +1,14 @@
+language: bash
+sudo: false
+
+services:
+  - docker
+
+script:
+  - cd rabbit-server
+
+after_success:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=ansvohra/rabbitmq
+  - docker build -t ansvohra/rabbitmq:latest .
+  - docker push ansvohra/rabbitmq:latest
