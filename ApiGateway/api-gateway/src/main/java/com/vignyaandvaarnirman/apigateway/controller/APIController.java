@@ -46,20 +46,20 @@ public class APIController {
     public String postUserLoginDetails(@RequestBody LoginUser user) {
         //TODO: Add User Management
         RestTemplate restTemplate = new RestTemplate();
-         return restTemplate.postForObject("http://localhost:5000/users/login",user, String.class);
+         return restTemplate.postForObject("http://usermanagement:5000/users/login",user, String.class);
     }
     @GetMapping(value = "/profile")
     public ProfileUser getUserDetails(@RequestBody JWToken jwToken) {
         //TODO : Add User Management
         RestTemplate restTemplate = new RestTemplate();
-        return restTemplate.getForObject("http://localhost:5000/users/profile",ProfileUser.class,jwToken);
+        return restTemplate.getForObject("http://usermanagement:5000/users/profile",ProfileUser.class,jwToken);
     }
 
     @PostMapping(value = "/register")
     public String postUserRegisterationDetails(@RequestBody RegUser regUser) {
         RestTemplate restTemplate = new RestTemplate();
         System.out.println("Inside register: "+regUser.getfirst_Name());
-        String response = restTemplate.postForObject("http://localhost:5000/users/register",regUser, String.class);
+        String response = restTemplate.postForObject("http://usermanagement:5000/users/register",regUser, String.class);
         return response;
     }
 
@@ -71,7 +71,7 @@ public class APIController {
 //        System.out.println(user_id);
 //        String res = toSession.send(user_id);
 //        //System.out.println("User id sent.");
-          String ans = restTemplate.postForObject("http://localhost:7000/sessions",user_id, String.class);
+          String ans = restTemplate.postForObject("http://sessionmanagement:7000/sessions",user_id, String.class);
           System.out.println(ans);
           return ans;
     }

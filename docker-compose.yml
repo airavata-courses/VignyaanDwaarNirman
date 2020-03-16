@@ -1,81 +1,78 @@
-version: "3"
+version: "2.1"
 services:
   rabbit:
-      hostname: rabbit
-      image: rabbitmq
-      ports:
-        - "5674:5672"  # we forward this port because it's useful for debugging
-        - "15674:15672"  # here, we can access rabbitmq management plugin
+    hostname: rabbit
+    build: "./rabbit_server"
+    ports: 
+        - "15672:15672"
+        - "5672:5672"
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:15672"]
+        interval: 30s
+        timeout: 10s
+        retries: 5
 
-  front-end:
+  frontend:
     build: "./FrontEnd"
+    hostname: frontend
     ports:
       - "3000:3000"
 
-  api-gateway:
+  apigateway:
     build: "./ApiGateway/api-gateway"
+    hostname: apigateway
     ports:
       - "8090:8090"
-    depends_on:
+    links:
       - rabbit
+      - frontend
+      - usermanagement
+      - sessionmanagement
 
-  user-management:
+  usermanagement:
     build: "./UserManagement"
+    hostname: usermanagement
     ports:
       - "5000:5000"
     environment:
       - MONGO_DB_URI=mongodb://db/microservices
 
-  session-management:
+  sessionmanagement:
     build: "./SessionManagement"
+    hostname: sessionmanagement
     ports:
       - "7000:7000"
     depends_on:
+      rabbit:
+        condition: service_healthy
+    links:
       - rabbit
     environment:
       - MONGO_DB_URI=mongodb://db/microservices
 
-  data-retrival:
+  dataretrival:
     build: "./DataRetrival"
+    hostname: dataretrival
     depends_on:
+      rabbit:
+        condition: service_healthy
+    links:
       - rabbit
 
-  model-execution:
+  modelexecution:
     build: "./ModelExecution"
+    hostname: modelexecution
     depends_on:
+      rabbit:
+        condition: service_healthy
+    links:
       - rabbit
 
-  model-analysis:
+  modelanalysis:
     build: "./ModelAnalysis"
+    hostname: modelanalysis
     depends_on:
+      rabbit:
+        condition: service_healthy
+    links:
       - rabbit
-
-  # db:
-    # image: mongo
-    # ports:
-      # - "27017:27017"
-
-  # nodejs:
-    # image: node:10
-
-  # py:
-    # image: continuumio/miniconda3
-
-  # jdk:
-    # image: openjdk:11.0.6-jre-slim-buster
-
-
-  # nginx:
-    # image: nginx:latest
-    # ports:
-      # - "8080:8080"
-    # volumes:
-      # - ./web/public:/srv/www/static
-      # - ./default.conf:/etc/nginx/conf.d/default.conf
-    # depends_on:
-      # - FrontEnd
-      # - UserManagement
-      # - SessionManagement
-      # - DataRetrival
-      # - ModelAnalysis
-      # - ModelExecution

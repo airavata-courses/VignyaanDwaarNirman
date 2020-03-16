@@ -10,7 +10,6 @@ import os
 import base64
 import time
 
-time.sleep(15)
 credentials = pika.PlainCredentials(username='guest', password='guest')
 connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbit' , port=5672, credentials=credentials))
 channel = connection.channel()
@@ -62,15 +61,6 @@ def callback(ch, method, properties, body):
     	myString = base64.b64encode(img.read())
     SessionPayload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":str(start_date), "end_date":str(end_date),"timestamp":timestamp, "file_location":str(myString.decode("utf-8"))}
     ApiPayload = {"file_location":str(myString.decode("utf-8"))}
-    #Payload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":str(start_date), "end_date":str(end_date),"timestamp":timestamp, "file_location":file_location}
-    #SessionPayload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":str(start_date), "end_date":str(end_date),"timestamp":timestamp, "file_location":file_location}
-    #ApiPayload = {"file_location":file_location}
-    # modelAnaly_connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-    # modelAnaly_channel = modelAnaly_connection.channel()
-    # #modelExec_channel.queue_declare(queue='sessionData')
-    # modelAnaly_channel.exchange_declare(exchange='logs', exchange_type='fanout')
-    # sessionPayload = {"user_id":user_id, "function_type":function_type, "radar_id":radar_id, "start_date":str(start_date), "end_date":str(end_date),"timestamp":timestamp, "file_location":file_location}
-    # modelAnaly_channel.basic_publish(exchange='logs', routing_key='', body=json.dumps(sessionPayload))
 
     api_connection = pika.BlockingConnection(pika.ConnectionParameters(host = 'rabbit' , port=5672, credentials=credentials))
     api_channel = api_connection.channel()
