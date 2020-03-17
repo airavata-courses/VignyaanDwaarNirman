@@ -21,15 +21,24 @@ public class FromModelListener {
             channel.queueDeclare(QUEUE_NAME, true, false, false, null);
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
-                    result = message;
-                System.out.println("Result inside DCQ: " + result);
-                System.out.println(" [x] Received and Set'" + message + "'");
+                result = message;
+                if(result != null && message != null){
+                    System.out.println("Result inside DCQ: Image received");
+                    System.out.println(" [x] Received and Set: Image");
+                }
+                else{
+                    System.out.println("Result inside DCQ: null");
+                    System.out.println("[x] Received and Set: null");
+                }            
             };
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
             channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
             });
              Thread.sleep(40000); //TODO: Add a better blocking mechanism
-            System.out.println("Result outside DCQ: " + result);
+            if(result!=null) 
+                System.out.println("Result outside DCQ: Image");
+            else
+                System.out.println("Result outside DCQ: null");
             return result;
     }
 }

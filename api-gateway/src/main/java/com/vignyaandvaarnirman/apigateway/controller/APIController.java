@@ -83,7 +83,10 @@ public class APIController {
         toDataR.send(data);
         FromModelListener listener = new FromModelListener();
         String path = listener.receive();
-        System.out.println("Sent to front-end: "+path);
+        if(path!=null)
+            System.out.println("Sent to front-end:image");
+        else
+            Sytem.out.println("Sent to front-end:null");
         return path;
     }
 
