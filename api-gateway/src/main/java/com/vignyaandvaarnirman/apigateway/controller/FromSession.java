@@ -15,7 +15,7 @@ public class FromSession {
 
     public String receive() throws IOException, TimeoutException, InterruptedException {
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost("rabbitmq-server");
+        factory.setHost("rabbitmq-service");
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
         channel.queueDeclare(QUEUE_NAME, true, false, false, null);
