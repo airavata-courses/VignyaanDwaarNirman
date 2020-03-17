@@ -4,7 +4,7 @@ const Session = require("../models/Session");
 
 var amqp = require("amqplib/callback_api");
 
-amqp.connect("amqp://rabbit", function(error0, connection) {
+amqp.connect("amqp://rabbitmq-service", function(error0, connection) {
   if (error0) {
     throw error0;
   }
