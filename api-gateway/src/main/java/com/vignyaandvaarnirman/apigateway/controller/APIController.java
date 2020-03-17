@@ -86,7 +86,7 @@ public class APIController {
         if(path!=null)
             System.out.println("Sent to front-end:image");
         else
-            Sytem.out.println("Sent to front-end:null");
+            System.out.println("Sent to front-end:null");
         return path;
     }
 
