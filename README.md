@@ -1,6 +1,7 @@
 # VignyaanDwaarNirman
 
-A weather forecasting application
+A weather data retrieval and visualization web-application
+//This is an older ReadMe file for an older release of the web-application, the current ReadMe is being prepared.
 
 ## Authors
 
