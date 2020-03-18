@@ -19,6 +19,7 @@ def callback(ch, method, properties, body):
     
     start_date = data['start_date']
     print("Start date: ", start_date)
+    sys.stdout.flush("Start date: ", start_date)
     start = start_date.split("T")
     temp1 = start[0].replace('-',',')
     temp2 = start[1][:-5].replace(":",",")
@@ -30,6 +31,7 @@ def callback(ch, method, properties, body):
     temp2 = end[1][:-5].replace(":",",")
     end_date = str(temp1 +  "," + temp2)
     print("data retrival sdate: ", start_date)
+    sys.stdout.flush("data retrival sdate: ", start_date)
     
     user_id = data['user_id']
     function_type = data['function_type']
@@ -48,5 +50,6 @@ def callback(ch, method, properties, body):
 channel.basic_consume(queue='searchParam',auto_ack=True,on_message_callback=callback)
 
 print('[*] Waiting for radar files. To exit press CTRL+C')
+sys.stdout.flush('[*] Waiting for radar files. To exit press CTRL+C')
 
 channel.start_consuming()
