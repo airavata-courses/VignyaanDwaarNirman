@@ -20,7 +20,7 @@ amqp.connect("amqp://rabbitmq-service", function(error0, connection) {
       queue,
       function(msg) {
 		var data = JSON.parse(msg.content);
-        var data = Object.values(data)[:3];
+        var data = Object.values(data)[1];
         console.log("Data ", data);
 
         var user = JSON.parse(msg.content);
