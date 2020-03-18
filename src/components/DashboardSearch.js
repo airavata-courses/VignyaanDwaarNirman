@@ -8,7 +8,7 @@ import "./rdt.css";
 import Lightbox from "react-image-lightbox";
 import { useCookies } from "react-cookies";
 import { getPlot } from "./UserFunctions";
-
+import Spinner from "./Spinner";
 const styleLink = document.createElement("link");
 styleLink.rel = "stylesheet";
 styleLink.href =
@@ -110,6 +110,7 @@ class Dashboard extends Component {
   }
 
   onSubmit(e) {
+    this.props.history.push(`/plot`);
     console.log(this.state.start);
     this.userData = JSON.parse(localStorage.getItem("email"));
     e.preventDefault();
@@ -126,9 +127,8 @@ class Dashboard extends Component {
       getPlot(plot).then(res => {
         if (res) {
           localStorage.setItem("plot_url", JSON.stringify(res));
-          console.log(res)
+          console.log(res);
           console.log("stored url");
-          this.props.history.push(`/plot`);
         }
       });
     }

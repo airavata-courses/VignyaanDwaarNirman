@@ -8,6 +8,7 @@ import Register from "./components/Register";
 import Dashboard from "./components/DashboardSearch";
 import Session from "./components/Session";
 import Popup from "./components/Plot";
+import Spinner from "./componenets/Spinner";
 function App() {
   return (
     <Router>
@@ -21,6 +22,7 @@ function App() {
           <Route exact path="/dashboardsearch" component={Dashboard} />
           <Route exact path="/session" component={Session} />
           <Route exact path="/plot" component={Popup} />
+          <Route exact path="/spinner" component={Spinner} />
         </div>
       </div>
     </Router>
