@@ -19,7 +19,9 @@ amqp.connect("amqp://rabbitmq-service", function(error0, connection) {
     channel.consume(
       queue,
       function(msg) {
-        console.log("Data ", JSON.parse(msg.content));
+		var data = JSON.parse(msg.content);
+        var data = Object.values(data)[:3];
+        console.log("Data ", data);
 
         var user = JSON.parse(msg.content);
         var user_id = Object.values(user)[0];
