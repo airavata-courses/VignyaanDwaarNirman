@@ -25,8 +25,8 @@ class Session extends Component {
     });
   }
   renderTableData() {
-    const res = this.state.items;
-    return this.state.res.map((res, index) => {
+    const items = this.state.items;
+    return this.state.items.map((res, index) => {
       const {
         _id,
         user_id,
