@@ -7,7 +7,7 @@ class Plot extends Component {
     loading: true
   };
 
-  componentDidMount() {
+  componentDidUpdate() {
     this.userData = JSON.parse(localStorage.getItem("plot_url"));
 
     if (localStorage.getItem("plot_url")) {
