@@ -20,29 +20,10 @@ import java.util.concurrent.TimeoutException;
 @RestController
 @EnableRabbit
 @RequestMapping("/users")
-public class APIController {
+public class APIController throws IOException, TimeoutException, InterruptedExceptionI{
 
     FromModelListener listener = new FromModelListener();
     String path = listener.receive();
-//    String model_res;
-//
-//    public String getModel_res() {
-//        return model_res;
-//    }
-//
-//    public void setModel_res(String model_res) {
-//        this.model_res = model_res;
-//    }
-
-//    @Bean
-//    public Queue myQueue() {
-//        return new Queue("apiData");
-//    }
-//
-//    @RabbitListener(queues = "apiData")
-//    public void receive1(String in) throws InterruptedException {
-//        this.model_res = in;
-//    }
 
     @PostMapping(value = "/login")
     public String postUserLoginDetails(@RequestBody LoginUser user) {
@@ -69,17 +50,13 @@ public class APIController {
     public String getSessionDetails(@RequestBody User_Id user_id) throws Exception {
           System.out.println(user_id);
           RestTemplate restTemplate = new RestTemplate();
-//        ToSession toSession = new ToSession();
-//        System.out.println(user_id);
-//        String res = toSession.send(user_id);
-//        //System.out.println("User id sent.");
           String ans = restTemplate.postForObject("http://sessionmanagement:7000/sessions",user_id, String.class);
           System.out.println(ans);
           return ans;
     }
 
     @PostMapping(value = "/dashboardsearch")
-    public String getBottomData(@RequestBody Data data) throws IOException, TimeoutException, InterruptedException {
+    public String getBottomData(@RequestBody Data data) {
         System.out.println("Dashboard data: "+ data.toString());
         ToDataR toDataR = new ToDataR();
         toDataR.send(data);
