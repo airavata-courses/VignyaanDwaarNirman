@@ -5,7 +5,6 @@ import pika
 import logging
 import sys
 import time
-import click
 
 logging.basicConfig()
 
@@ -20,7 +19,7 @@ def callback(ch, method, properties, body):
     
     start_date = data['start_date']
     print("Start date: ", start_date)
-    click.echo("Start date: ", start_date)
+    logging.debug("Start date: ", start_date)
     start = start_date.split("T")
     temp1 = start[0].replace('-',',')
     temp2 = start[1][:-5].replace(":",",")
@@ -32,7 +31,6 @@ def callback(ch, method, properties, body):
     temp2 = end[1][:-5].replace(":",",")
     end_date = str(temp1 +  "," + temp2)
     print("data retrival sdate: ", start_date)
-    click.echo("data retrival sdate: ", start_date)
     
     user_id = data['user_id']
     function_type = data['function_type']
@@ -51,6 +49,5 @@ def callback(ch, method, properties, body):
 channel.basic_consume(queue='searchParam',auto_ack=True,on_message_callback=callback)
 
 print('[*] Waiting for radar files. To exit press CTRL+C')
-click.echo('[*] Waiting for radar files. To exit press CTRL+C')
-
+logging.debug('[*] Waiting for radar files. To exit press CTRL+C')
 channel.start_consuming()
