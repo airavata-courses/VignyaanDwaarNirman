@@ -22,6 +22,8 @@ import java.util.concurrent.TimeoutException;
 @RequestMapping("/users")
 public class APIController {
 
+    FromModelListener listener = new FromModelListener();
+    String path = listener.receive();
 //    String model_res;
 //
 //    public String getModel_res() {
@@ -81,8 +83,6 @@ public class APIController {
         System.out.println("Dashboard data: "+ data.toString());
         ToDataR toDataR = new ToDataR();
         toDataR.send(data);
-        FromModelListener listener = new FromModelListener();
-        String path = listener.receive();
         if(path!=null)
             System.out.println("Sent to front-end:image");
         else
