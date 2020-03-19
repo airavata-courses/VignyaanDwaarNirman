@@ -123,7 +123,7 @@ class Dashboard extends Component {
         start: this.state.start,
         end: this.state.end
       };
-      console.log("trying to send");
+      console.log("sending data");
       getPlot(plot).then(res => {
         if (res) {
           localStorage.setItem("plot_url", JSON.stringify(res));
