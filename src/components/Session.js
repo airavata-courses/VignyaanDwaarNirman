@@ -29,7 +29,17 @@ class Session extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-10 mt-5 mx-auto">
-            <table className="table">
+            <table>
+              <th>Timestamp </th>
+              <th>Radar Location </th>
+              <th>Start Date </th>
+              <th>End Date </th>
+              <th>Function </th>
+              <tr>
+                {this.state.items.map(item => (
+                  <item>{item.timestamp} </item>
+                ))}{" "}
+              </tr>
               <tr>
                 {this.state.items.map(item => (
                   <item>{item.radar_id} </item>
@@ -46,11 +56,7 @@ class Session extends Component {
                   <item>{item.end_date}</item>
                 ))}{" "}
               </tr>
-              <tr>
-                {this.state.items.map(item => (
-                  <item>{item.timestamp} </item>
-                ))}{" "}
-              </tr>
+
               <tr>
                 {this.state.items.map(item => (
                   <item>{item.function_type}</item>
