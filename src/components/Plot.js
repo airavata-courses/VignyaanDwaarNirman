@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Spinner from "./Spinner";
 const base64prefix = "data:image/png;base64, ";
 class Plot extends Component {
   state = {
