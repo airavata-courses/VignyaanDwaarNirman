@@ -24,45 +24,37 @@ class Session extends Component {
       }
     });
   }
+  renderTableData() {
+    const res = this.state.items;
+    return this.state.res.map((res, index) => {
+      const {
+        _id,
+        user_id,
+        function_type,
+        radar_id,
+        start_date,
+        end_date,
+        timestamp,
+        filelocation
+      } = res; //destructuring
+      return (
+        <tr key={_id}>
+          <td>{timestamp}</td>
+          <td>{radar_id}</td>
+          <td>{start_date}</td>
+          <td>{end_date}</td>
+          <td>{function_type}</td>
+        </tr>
+      );
+    });
+  }
+
   render() {
     return (
       <div className="container">
         <div className="row">
           <div className="col-md-10 mt-5 mx-auto">
-            <table>
-              <th>Timestamp </th>
-              <th>Radar Location </th>
-              <th>Start Date </th>
-              <th>End Date </th>
-              <th>Function </th>
-              <tr>
-                {this.state.items.map(item => (
-                  <item>{item.timestamp} </item>
-                ))}{" "}
-              </tr>
-              <tr>
-                {this.state.items.map(item => (
-                  <item>{item.radar_id} </item>
-                ))}
-              </tr>
-              <tr>
-                {" "}
-                {this.state.items.map(item => (
-                  <item>{item.start_date}</item>
-                ))}
-              </tr>
-              <tr>
-                {this.state.items.map(item => (
-                  <item>{item.end_date}</item>
-                ))}{" "}
-              </tr>
-
-              <tr>
-                {this.state.items.map(item => (
-                  <item>{item.function_type}</item>
-                ))}{" "}
-              </tr>
-            </table>
+            <table>{this.renderTableData()}</table>
           </div>
         </div>
       </div>
