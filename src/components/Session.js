@@ -60,7 +60,8 @@ class Session extends Component {
               <th>Start Date</th>
               <th>End Date</th>
               <th>Plot Type</th>
-                </th>{this.renderTableData()}</table>
+              {this.renderTableData()}
+            </table>
           </div>
         </div>
       </div>
