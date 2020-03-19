@@ -7,7 +7,7 @@ class Plot extends Component {
     loading: true
   };
 
-  componentDidUpdate() {
+  componentDidMount() {
     this.userData = JSON.parse(localStorage.getItem("plot_url"));
 
     if (localStorage.getItem("plot_url")) {
@@ -24,15 +24,11 @@ class Plot extends Component {
     return (
       <div className="container">
         <div>
-          {this.state.loading ? (
-            <Spinner />
-          ) : (
-            <img
-              src={base64prefix + this.state.url}
-              alt="img"
-              className="plotImage"
-            />
-          )}
+          <img
+            src={base64prefix + this.state.url}
+            alt="img"
+            className="plotImage"
+          />
         </div>
       </div>
     );

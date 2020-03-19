@@ -37,7 +37,8 @@ class Dashboard extends Component {
       endError: "",
       selectedFuncOptionsError: "",
       selectedOptionsError: "",
-      username: ""
+      username: "",
+      loading: true
     };
 
     this.onChange = this.onChange.bind(this);
@@ -110,7 +111,6 @@ class Dashboard extends Component {
   }
 
   onSubmit(e) {
-    this.props.history.push(`/plot`);
     console.log(this.state.start);
     this.userData = JSON.parse(localStorage.getItem("email"));
     e.preventDefault();
@@ -127,6 +127,8 @@ class Dashboard extends Component {
       getPlot(plot).then(res => {
         if (res) {
           localStorage.setItem("plot_url", JSON.stringify(res));
+          this.props.history.push(`/plot`);
+          this.setState({ loading: false });
           console.log(res);
           console.log("stored url");
         }
@@ -135,6 +137,7 @@ class Dashboard extends Component {
   }
 
   render() {
+    const loading = this.state.loading;
     const { selectedOption } = this.state;
     const { selectedFuncOption } = this.state;
     return (
@@ -199,6 +202,7 @@ class Dashboard extends Component {
                 Get Curves
               </button>
             </form>
+            {this.state.loading ? <Spinner /> : ""}
           </div>
         </div>
       </div>
