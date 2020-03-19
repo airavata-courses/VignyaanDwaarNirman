@@ -54,12 +54,12 @@ class Session extends Component {
       <div className="container">
         <div className="row">
           <div className="col-md-10 mt-5 mx-auto">
-            <table>
-              <th>Timestamp</th>
-              <th>Location</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Plot Type</th>
+            <table className="table">
+              <td>Timestamp</td>
+              <td>Location</td>
+              <td>Start Date</td>
+              <td>End Date</td>
+              <td>Plot Type</td>
               {this.renderTableData()}
             </table>
           </div>
