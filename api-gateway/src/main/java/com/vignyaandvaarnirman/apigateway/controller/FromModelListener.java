@@ -34,11 +34,11 @@ public class FromModelListener {
             };
             channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
             });
-             //Thread.sleep(40000); //TODO: Add a better blocking mechanism
-            //if(result!=null) 
-            //    System.out.println("Result outside DCQ: Image");
-            //else
-            //    System.out.println("Result outside DCQ: null");
+             Thread.sleep(40000); //TODO: Add a better blocking mechanism
+            if(result!=null) 
+                System.out.println("Result outside DCQ: Image");
+            else
+                System.out.println("Result outside DCQ: null");
             return result;
     }
 }
