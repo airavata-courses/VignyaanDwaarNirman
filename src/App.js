@@ -8,7 +8,7 @@ import Register from "./components/Register";
 import Dashboard from "./components/DashboardSearch";
 import Session from "./components/Session";
 import Popup from "./components/Plot";
-import Spinner from "./componenets/Spinner";
+import Spinner from "./components/Spinner";
 function App() {
   return (
     <Router>
