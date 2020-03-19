@@ -19,10 +19,11 @@ public class FromModelListener {
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
             channel.queueDeclare(QUEUE_NAME, true, false, false, null);
+            System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
-                result = message;
-                if(result != null && message != null){
+                //result = message;
+                if(message != null){
                     System.out.println("Result inside DCQ: Image received");
                     System.out.println(" [x] Received and Set: Image");
                 }
@@ -31,14 +32,13 @@ public class FromModelListener {
                     System.out.println("[x] Received and Set: null");
                 }            
             };
-            System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
             channel.basicConsume(QUEUE_NAME, true, deliverCallback, consumerTag -> {
             });
-             Thread.sleep(40000); //TODO: Add a better blocking mechanism
-            if(result!=null) 
-                System.out.println("Result outside DCQ: Image");
-            else
-                System.out.println("Result outside DCQ: null");
-            return result;
+             //Thread.sleep(40000); //TODO: Add a better blocking mechanism
+            //if(result!=null) 
+            //    System.out.println("Result outside DCQ: Image");
+            //else
+            //    System.out.println("Result outside DCQ: null");
+            return message;
     }
 }
