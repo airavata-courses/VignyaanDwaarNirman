@@ -16,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
+import com.vignyaandvaarnirman.apigateway.ApiGatewayApplication;
 
 @RestController
 @EnableRabbit

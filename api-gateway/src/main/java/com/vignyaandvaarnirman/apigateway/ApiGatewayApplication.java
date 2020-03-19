@@ -9,6 +9,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
 
 @SpringBootApplication
 public class ApiGatewayApplication {
