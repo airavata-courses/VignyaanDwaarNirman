@@ -20,10 +20,15 @@ import java.util.concurrent.TimeoutException;
 @RestController
 @EnableRabbit
 @RequestMapping("/users")
-public class APIController throws IOException, TimeoutException, InterruptedException {
+public class APIController {
 
-    FromModelListener listener = new FromModelListener();
-    String path = listener.receive();
+    try{
+            FromModelListener listener=new FromModelListener();
+            String path=listener.receive();
+        }
+    catch(Exception e){
+            System.out.println(e.printStackTrace());
+        }
 
     @PostMapping(value = "/login")
     public String postUserLoginDetails(@RequestBody LoginUser user) {
