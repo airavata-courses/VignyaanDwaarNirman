@@ -22,14 +22,6 @@ import java.util.concurrent.TimeoutException;
 @RequestMapping("/users")
 public class APIController {
 
-    try{
-            FromModelListener listener=new FromModelListener();
-            String path=listener.receive();
-        }
-    catch(Exception e){
-            System.out.println(e.printStackTrace());
-        }
-
     @PostMapping(value = "/login")
     public String postUserLoginDetails(@RequestBody LoginUser user) {
         //TODO: Add User Management
@@ -65,6 +57,7 @@ public class APIController {
         System.out.println("Dashboard data: "+ data.toString());
         ToDataR toDataR = new ToDataR();
         toDataR.send(data);
+        String path = ApiGatewayApplication.getPath();
         if(path!=null)
             System.out.println("Sent to front-end:image");
         else

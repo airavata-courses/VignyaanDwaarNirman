@@ -12,7 +12,7 @@ import com.rabbitmq.client.Channel;
 
 @SpringBootApplication
 public class ApiGatewayApplication {
-
+    static String path;
     @Profile("main-app")
     @Bean
     public CommandLineRunner usage() {
@@ -29,8 +29,18 @@ public class ApiGatewayApplication {
             System.out.println("API Gateway Started!!");
         };
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, TimeoutException, InterruptedException{
         SpringApplication.run(ApiGatewayApplication.class, args);
+        FromModelListener listener=new FromModelListener();
+        path=listener.receive();
     }
 
+    public static String getPath() {
+        System.out.println("Path is being fetched: "+path);
+        return path;
+    }
+
+    public static void setPath(String path) {
+        ApiGatewayApplication.path = path;
+    }
 }
