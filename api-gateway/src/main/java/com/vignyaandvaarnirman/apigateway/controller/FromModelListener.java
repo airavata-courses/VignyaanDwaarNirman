@@ -22,7 +22,7 @@ public class FromModelListener {
             System.out.println(" [*] Waiting for messages. To exit press CTRL+C");
             DeliverCallback deliverCallback = (consumerTag, delivery) -> {
                 String message = new String(delivery.getBody(), "UTF-8");
-                //result = message;
+                result = message;
                 if(message != null){
                     System.out.println("Result inside DCQ: Image received");
                     System.out.println(" [x] Received and Set: Image");
@@ -39,6 +39,6 @@ public class FromModelListener {
             //    System.out.println("Result outside DCQ: Image");
             //else
             //    System.out.println("Result outside DCQ: null");
-            return message;
+            return result;
     }
 }
