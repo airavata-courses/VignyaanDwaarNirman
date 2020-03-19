@@ -20,7 +20,7 @@ import java.util.concurrent.TimeoutException;
 @RestController
 @EnableRabbit
 @RequestMapping("/users")
-public class APIController throws IOException, TimeoutException, InterruptedExceptionI{
+public class APIController throws IOException, TimeoutException, InterruptedException {
 
     FromModelListener listener = new FromModelListener();
     String path = listener.receive();
