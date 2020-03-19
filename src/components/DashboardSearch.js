@@ -127,9 +127,9 @@ class Dashboard extends Component {
       console.log("sending data");
       getPlot(plot).then(res => {
         if (res) {
+          this.setState({ loading: false });
           localStorage.setItem("plot_url", JSON.stringify(res));
           this.props.history.push(`/plot`);
-
           console.log(res);
           console.log("stored url");
         }
