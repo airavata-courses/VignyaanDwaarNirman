@@ -38,7 +38,7 @@ class Dashboard extends Component {
       selectedFuncOptionsError: "",
       selectedOptionsError: "",
       username: "",
-      loading: true
+      loading: false
     };
 
     this.onChange = this.onChange.bind(this);
@@ -111,6 +111,7 @@ class Dashboard extends Component {
   }
 
   onSubmit(e) {
+    this.setState({ loading: true });
     console.log(this.state.start);
     this.userData = JSON.parse(localStorage.getItem("email"));
     e.preventDefault();
@@ -128,7 +129,7 @@ class Dashboard extends Component {
         if (res) {
           localStorage.setItem("plot_url", JSON.stringify(res));
           this.props.history.push(`/plot`);
-          this.setState({ loading: false });
+
           console.log(res);
           console.log("stored url");
         }
