@@ -55,11 +55,12 @@ public class APIController {
 
     @PostMapping(value = "/dashboardsearch")
     public String getBottomData(@RequestBody Data data) throws IOException, TimeoutException, InterruptedException{
+        String path;
         System.out.println("Dashboard data: "+ data.toString());
         ToDataR toDataR = new ToDataR();
         toDataR.send(data);
         while(true) {
-            String path = ApiGatewayApplication.getPath();
+             path = ApiGatewayApplication.getPath();
             if(path!=null)
                 break;
         }
