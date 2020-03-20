@@ -1,7 +1,7 @@
 # VignyaanDwaarNirman
 
 * A weather data retrieval and visualization web-application
-* //This is an older ReadMe file for an older release of the web-application, the current ReadMe is being prepared.
+* //This is an older branch for an older release of the web-application, for accessing/testing the current release follow the instructions below.
 
 ## Authors
 
@@ -12,102 +12,108 @@
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. To begin with, clone the repository on your system using the following command: 
+The application is already deployed on Jetstream instances which can be accessed by going to http://149.165.168.66:30012/ 
 
+## Testing CI/CD:
+
+Follow the steps below to test CI/CD. 
+
+#### Clone the repo :  
+Clone the repository to your local device, by running the following command :
 ```
 git clone https://github.com/airavata-courses/VignyaanDwaarNirman.git
-```
-
-## Setting up the environment
-
-Follow the steps below to install the dependencies and tools, necessary for running the application. 
-
-### Download & install RabbitMQ:  
-https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.8.2/rabbitmq-server-3.8.2.exe  
-```
-Set 2 environment variables:  
-- RABBITMQ_SERVER - that has the path to the installation directory  
-- RABBITMQ_NODENAME - rabbit@localhost  
-Append the following variable to path:  
-%RABBITMQ_SERVER%\sbin      
-&nbsp;open a command prompt and enter:  
-i) rabbitmqctl start_app  (You should see rabbitmqctl starting up)   
-ii) rabbitmqctl start_app (You should see rabbitmqctl ports in use)  
-
-If you dont see rabbitmq running: 
-go to start and click on RAbbitMQ service - START then run the 2 commads mentioned above again
-```
-
-#### Download & Install python anaconda package:
-Python-anaconda package: https://repo.anaconda.com/archive/Anaconda3-2019.10-Windows-x86_64.exe
-
-#### Download & install MongoDB
-https://www.mongodb.com/download-center/community select windows x64 version and download
-
-#### Download and install JDK
-https://download.oracle.com/otn-pub/java/jdk/13.0.2+8/d4173c853231432d94f001e99d882ca7/jdk-13.0.2_windows-x64_bin.exe
-
-Go to /VignyaanDwaarNirman, we will use the requirements.txt file to install to install the dependencies for python, using this command.
 
 ```
-pip install requirements.txt
-```
-Go to /Front_End_Statging and run the following commands in order to get all the dependencies,
-```
-npm install -g
-```
-Go to /User_Mgmt_Statging and run the following commands in order to get all the dependencies,
-```
-npm install -g
-```
-Go to /Session_Mgmt_Statging and run the following commands in order to get all the dependencies,
-```
-npm install -g
-```
-Go to /Session_Mgmt_Statging and run the following commands in order to get all the dependencies,
-```
-npm install -g
-```
 
-### Running the application
-Follow the steps below to get all the microservices running. be sure to run all of them before testing the application 
-#### Model-Analysis-Microservice
-- cd to ../VignyaanDwaarNirman/ModelAnalysis , in this directory and run the command below in a terminal :
+#### Switch to any dockerize_* branch and pull :
+Switch to any branch of the form dockerize_"insert_microservice_name" and pull the latest changes.
 ```
-python ModelAnalysis.py
+git checkout $BRANCH_NAME
+git pull origin $BRANCH_NAME
+
 ```
-#### Data-Retreival-Microservice
-- cd to ../VignyaanDwaarNirman/DataRetrival , in this directory and run the command below in a terminal :
+Switch to any of the following branches:
+- dockerize_apiGateway
+- dockerize_dataRetrival
+- dockerize_frontEnd
+- dockerize_modelAnalysis
+- dockerize_modelExecution
+- dockerize_sessionManagement
+- dockerize_userManagement
+
+#### Make some minor change to the code and push it 
+Add a comment to the code that you have pulled and then input the following commands: 
+1) Check the status to see if changes are refelcted or not 
 ```
-python DataRetrival.py
+git status
 ```
-#### Model-Execution-Microservice
-- cd to ../VignyaanDwaarNirman/ModelExecution , in this directory and run the command below in a terminal :
+This should display the file that you have added a comment to.
+
+2) Stage the changed files and commit and push it :
+
 ```
-python ModelExecution.py
-```
-#### User-Management-Microservice
-- cd to ../VignyaanDwaarNirman/UserManagement , in this directory and run the commands below in a terminal:
-```
-npm install
-npm run dev
-```
-#### Session-Management-Microservice
-- cd to /VignyaanDwaarNirman/SessionManagement , in this directory and run the commands below in a terminal:
-```
-npm install
-npm run dev
-```
-#### API-Gateway-Microservice
-- cd to /VignyaanDwaarNirman/APIGateway , in this directory and run the command below in a terminal:
-```
-java -jar target/api-gateway-0.0.1-SNAPSHOT.jar
-```
-#### Front-End
-- cd to /VignyaanDwaarNirman/FrontEnd , in this directory and run the commands below in a terminal: 
-```
-npm install
-npm start
+git add *
+git commit -m " $PEER_REVIEWER_NAME testing CI/CD "
+git push origin $BRANCH_NAME
+
 ```
 
 
+#### Go to TRAVIS-CI
+
+Go to https://travis-ci.org/ search for VignyaanDvaarNirman under repositories and a new build should have been triggered, with your name.
+
+Depending on the microservice, you pulled it should take 3-10 minutes for the microservice to successfully build and be deployed.
+This should conclude the CI/CD testing. 
+
+## Testing Kubernetes
+
+#### Contact any of the team-members:
+For accessing the deployed microservice, you will require the private ssh key, please contact any of the team members on https://airavta.slack.com/ to get the key.
+
+#### SSH into the master instance :
+SSH into the master instance using the following command :
+```
+ssh -i vdn-pub.pem ubuntu@149.165.168.66
+
+```
+This should give you access to the master instance
+
+#### KubeCTL commands :
+
+After accessing the master instance you should see a prompt of this kind :
+
+```
+ubuntu@vdn-master:~$
+
+```
+Now, try any of the following commands for testing Kubernetes.
+
+1) See deployed pods :
+```
+kubectl get pods
+```
+This should list down all the deployed microservices and their pods with their status, no. of restarts and age.
+
+2) See running services :
+
+```
+kubectl get service
+```
+
+3) See logs of pods :
+
+```
+kubectl logs $POD_NAME
+
+```
+
+4) Delete a pod for testing :
+
+```
+kubectl delete pod $POD_NAME
+
+```
+This should delete the pod and then list the pods to see that the pod would have restarted with an age of < 1 minute. 
+
+Thanks for reading through, feel free to leave an issue or a comment if needed. 😃
