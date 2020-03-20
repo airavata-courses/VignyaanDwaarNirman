@@ -10,7 +10,7 @@ process.env.SECRET_KEY = "secret";
 sessions.post("/sessions", (req, res) => {
   console.log(req.body.user_id);
 
-  Session.find({ user_id: req.body.user_id, $orderby: { timestamp : -1 } }, function(error2, data) {
+  Session.find({ user_id: req.body.user_id}, function(error2, data) {
     console.log(data);
     res.send({ data });
     if (error2) {
