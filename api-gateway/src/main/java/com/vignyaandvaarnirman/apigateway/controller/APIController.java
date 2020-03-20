@@ -16,12 +16,31 @@ import org.springframework.web.client.RestTemplate;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
-import com.vignyaandvaarnirman.apigateway.ApiGatewayApplication;
 
 @RestController
 @EnableRabbit
 @RequestMapping("/users")
 public class APIController {
+
+//    String model_res;
+//
+//    public String getModel_res() {
+//        return model_res;
+//    }
+//
+//    public void setModel_res(String model_res) {
+//        this.model_res = model_res;
+//    }
+
+//    @Bean
+//    public Queue myQueue() {
+//        return new Queue("apiData");
+//    }
+//
+//    @RabbitListener(queues = "apiData")
+//    public void receive1(String in) throws InterruptedException {
+//        this.model_res = in;
+//    }
 
     @PostMapping(value = "/login")
     public String postUserLoginDetails(@RequestBody LoginUser user) {
@@ -48,23 +67,26 @@ public class APIController {
     public String getSessionDetails(@RequestBody User_Id user_id) throws Exception {
           System.out.println(user_id);
           RestTemplate restTemplate = new RestTemplate();
+//        ToSession toSession = new ToSession();
+//        System.out.println(user_id);
+//        String res = toSession.send(user_id);
+//        //System.out.println("User id sent.");
           String ans = restTemplate.postForObject("http://sessionmanagement:7000/sessions",user_id, String.class);
           System.out.println(ans);
           return ans;
     }
 
     @PostMapping(value = "/dashboardsearch")
-    public String getBottomData(@RequestBody Data data) throws IOException, TimeoutException, InterruptedException{
-        String path;
+    public String getBottomData(@RequestBody Data data) throws IOException, TimeoutException, InterruptedException {
         System.out.println("Dashboard data: "+ data.toString());
         ToDataR toDataR = new ToDataR();
         toDataR.send(data);
-        while(true) {
-             path = ApiGatewayApplication.getPath();
-            if(path!=null)
-                break;
-        }
-        System.out.println("Sent to front-end: "+path);
+        FromModelListener listener = new FromModelListener();
+        String path = listener.receive();
+        if(path!=null)
+            System.out.println("Sent to front-end:image");
+        else
+            System.out.println("Sent to front-end:null");
         return path;
     }
 
