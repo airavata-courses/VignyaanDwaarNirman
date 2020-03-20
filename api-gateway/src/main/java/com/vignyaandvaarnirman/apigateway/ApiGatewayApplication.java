@@ -9,13 +9,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.Channel;
-import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-import com.vignyaandvaarnirman.apigateway.controller.FromModelListener;
 
 @SpringBootApplication
 public class ApiGatewayApplication {
-    static String path;
+
     @Profile("main-app")
     @Bean
     public CommandLineRunner usage() {
@@ -32,19 +29,8 @@ public class ApiGatewayApplication {
             System.out.println("API Gateway Started!!");
         };
     }
-    public static void main(String[] args) throws IOException, TimeoutException, InterruptedException{
+    public static void main(String[] args) {
         SpringApplication.run(ApiGatewayApplication.class, args);
-        System.out.println("Application Started");
-        FromModelListener listener=new FromModelListener();
-        path=listener.receive();
     }
 
-    public static String getPath() {
-        System.out.println("Path is being fetched: "+path);
-        return path;
-    }
-
-    public static void setPath(String path) {
-        ApiGatewayApplication.path = path;
-    }
 }
