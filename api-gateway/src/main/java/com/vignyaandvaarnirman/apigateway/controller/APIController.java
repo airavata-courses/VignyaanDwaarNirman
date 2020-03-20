@@ -58,11 +58,12 @@ public class APIController {
         System.out.println("Dashboard data: "+ data.toString());
         ToDataR toDataR = new ToDataR();
         toDataR.send(data);
-        String path = ApiGatewayApplication.getPath();
-        if(path!=null)
-            System.out.println("Sent to front-end:image");
-        else
-            System.out.println("Sent to front-end:null");
+        while(true) {
+            String path = ApiGatewayApplication.getPath();
+            if(path!=null)
+                break;
+        }
+        System.out.println("Sent to front-end: "+path);
         return path;
     }
 

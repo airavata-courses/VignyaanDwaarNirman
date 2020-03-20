@@ -34,6 +34,7 @@ public class ApiGatewayApplication {
     }
     public static void main(String[] args) throws IOException, TimeoutException, InterruptedException{
         SpringApplication.run(ApiGatewayApplication.class, args);
+        System.out.println("Application Started");
         FromModelListener listener=new FromModelListener();
         path=listener.receive();
     }
