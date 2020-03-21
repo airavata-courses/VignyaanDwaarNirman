@@ -44,7 +44,7 @@ def callback(ch, method, properties, body):
     microservice_channel.basic_publish(exchange='topic_logs',routing_key=routing_key,body=json.dumps(payload))
     
     microservice_connection.close()
-
+    # testing CI
 
 channel.basic_consume(queue='searchParam',auto_ack=True,on_message_callback=callback)
 
