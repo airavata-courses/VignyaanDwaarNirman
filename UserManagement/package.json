@@ -38,7 +38,7 @@
     "react-dropdown-select": "^3.11.0",
     "react-image-lightbox": "^5.1.1",
     "react-modal-image": "^2.5.0",
-    "react-native": "^0.61.5",
+    "react-native": "^0.62.3",
     "react-select": "^3.0.8",
     "semantic-ui-react": "^0.88.2",
     "weather-icons": "git+https://github.com/erikflowers/weather-icons.git",
